@@ -1,0 +1,559 @@
+name: CloudIDE CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      deploy_environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+        - staging
+        - production
+
+env:
+  NODE_VERSION: '20'
+  PNPM_VERSION: '8'
+  REGISTRY_URL: ${{ secrets.CONTAINER_REGISTRY_URL }}
+  IMAGE_NAME: cloudide-app
+
+jobs:
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+      - name: Run CodeQL Analysis
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript,typescript
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+
+  quality-checks:
+    name: Quality Checks
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint code
+        run: pnpm lint
+
+      - name: Type check
+        run: pnpm typecheck
+
+      - name: Run tests
+        run: pnpm test:coverage
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/coverage-final.json
+          flags: unittests
+          name: codecov-umbrella
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  build:
+    name: Build Application
+    runs-on: ubuntu-latest
+    needs: [security-scan, quality-checks]
+    outputs:
+      image-digest: ${{ steps.build.outputs.digest }}
+      image-tag: ${{ steps.meta.outputs.tags }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build application
+        run: pnpm build
+        env:
+          NODE_ENV: production
+
+      - name: Generate build artifacts
+        run: |
+          tar -czf build-artifacts.tar.gz dist/
+          echo "BUILD_SIZE=$(du -sh dist/ | cut -f1)" >> $GITHUB_ENV
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: build-artifacts.tar.gz
+          retention-days: 30
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY_URL }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Extract metadata for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY_URL }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=sha,prefix={{branch}}-
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Build and push Docker image
+        id: build
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64,linux/arm64
+
+      - name: Generate SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          image: ${{ env.REGISTRY_URL }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          format: spdx-json
+          output-file: sbom.spdx.json
+
+      - name: Upload SBOM
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: sbom.spdx.json
+
+  container-scan:
+    name: Container Security Scan
+    runs-on: ubuntu-latest
+    needs: build
+    
+    steps:
+      - name: Run Trivy container scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ needs.build.outputs.image-tag }}
+          format: 'sarif'
+          output: 'container-scan-results.sarif'
+
+      - name: Upload container scan results
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'container-scan-results.sarif'
+
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: [build, container-scan]
+    if: github.ref == 'refs/heads/develop' || (github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_environment == 'staging')
+    environment:
+      name: staging
+      url: https://staging.cloudide.dev
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Deploy to ECS Staging
+        run: |
+          # Update ECS service with new image
+          aws ecs update-service \
+            --cluster cloudide-staging \
+            --service cloudide-app-staging \
+            --force-new-deployment \
+            --task-definition cloudide-app-staging:$(aws ecs describe-task-definition \
+              --task-definition cloudide-app-staging \
+              --query 'taskDefinition.revision' --output text)
+
+      - name: Wait for deployment
+        run: |
+          aws ecs wait services-stable \
+            --cluster cloudide-staging \
+            --services cloudide-app-staging
+
+      - name: Run smoke tests
+        run: |
+          # Basic health check
+          curl -f https://staging.cloudide.dev/health || exit 1
+          
+          # API endpoint test
+          curl -f https://staging.cloudide.dev/api/status || exit 1
+          
+          # WebSocket connection test
+          node -e "
+            const WebSocket = require('ws');
+            const ws = new WebSocket('wss://staging.cloudide.dev/ws');
+            ws.on('open', () => {
+              console.log('WebSocket connection successful');
+              ws.close();
+            });
+            ws.on('error', (err) => {
+              console.error('WebSocket connection failed:', err);
+              process.exit(1);
+            });
+          "
+
+      - name: Update staging status
+        if: always()
+        run: |
+          if [ "${{ job.status }}" == "success" ]; then
+            echo "✅ Staging deployment successful"
+          else
+            echo "❌ Staging deployment failed"
+          fi
+
+  integration-tests:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    needs: deploy-staging
+    if: needs.deploy-staging.result == 'success'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run E2E tests against staging
+        run: pnpm test:e2e
+        env:
+          BASE_URL: https://staging.cloudide.dev
+          TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
+          TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: integration-test-results
+          path: |
+            test-results/
+            screenshots/
+
+  performance-tests:
+    name: Performance Tests
+    runs-on: ubuntu-latest
+    needs: deploy-staging
+    if: needs.deploy-staging.result == 'success'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v10
+        with:
+          configPath: ./.lighthouserc.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+      - name: Run load tests
+        uses: grafana/k6-action@v0.3.1
+        with:
+          filename: tests/load-test.js
+        env:
+          BASE_URL: https://staging.cloudide.dev
+
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [integration-tests, performance-tests]
+    if: |
+      always() && 
+      needs.integration-tests.result == 'success' && 
+      needs.performance-tests.result == 'success' && 
+      (github.ref == 'refs/heads/main' || 
+       (github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_environment == 'production'))
+    environment:
+      name: production
+      url: https://cloudide.dev
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_PROD }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }}
+          aws-region: us-east-1
+
+      - name: Blue-Green Deployment
+        run: |
+          # Get current active service
+          CURRENT_SERVICE=$(aws elbv2 describe-target-groups \
+            --target-group-arns ${{ secrets.TARGET_GROUP_ARN }} \
+            --query 'TargetGroups[0].TargetGroupName' --output text)
+          
+          if [[ $CURRENT_SERVICE == *"blue"* ]]; then
+            NEW_SERVICE="cloudide-app-green"
+            OLD_SERVICE="cloudide-app-blue"
+          else
+            NEW_SERVICE="cloudide-app-blue"
+            OLD_SERVICE="cloudide-app-green"
+          fi
+          
+          echo "Deploying to $NEW_SERVICE"
+          
+          # Update the inactive service
+          aws ecs update-service \
+            --cluster cloudide-production \
+            --service $NEW_SERVICE \
+            --force-new-deployment
+          
+          # Wait for new service to be stable
+          aws ecs wait services-stable \
+            --cluster cloudide-production \
+            --services $NEW_SERVICE
+          
+          # Run health checks on new service
+          NEW_SERVICE_IP=$(aws ecs describe-tasks \
+            --cluster cloudide-production \
+            --tasks $(aws ecs list-tasks \
+              --cluster cloudide-production \
+              --service-name $NEW_SERVICE \
+              --query 'taskArns[0]' --output text) \
+            --query 'tasks[0].attachments[0].details[?name==`privateIPv4Address`].value' \
+            --output text)
+          
+          # Health check
+          curl -f http://$NEW_SERVICE_IP:3000/health || exit 1
+          
+          # Switch load balancer to new service
+          aws elbv2 modify-target-group \
+            --target-group-arn ${{ secrets.TARGET_GROUP_ARN }} \
+            --health-check-path /health
+          
+          # Register new service with load balancer
+          aws elbv2 register-targets \
+            --target-group-arn ${{ secrets.TARGET_GROUP_ARN }} \
+            --targets Id=$NEW_SERVICE_IP,Port=3000
+          
+          # Wait for targets to be healthy
+          sleep 30
+          
+          # Deregister old service
+          OLD_SERVICE_IP=$(aws ecs describe-tasks \
+            --cluster cloudide-production \
+            --tasks $(aws ecs list-tasks \
+              --cluster cloudide-production \
+              --service-name $OLD_SERVICE \
+              --query 'taskArns[0]' --output text) \
+            --query 'tasks[0].attachments[0].details[?name==`privateIPv4Address`].value' \
+            --output text)
+          
+          aws elbv2 deregister-targets \
+            --target-group-arn ${{ secrets.TARGET_GROUP_ARN }} \
+            --targets Id=$OLD_SERVICE_IP,Port=3000
+
+      - name: Post-deployment verification
+        run: |
+          # Comprehensive health checks
+          curl -f https://cloudide.dev/health || exit 1
+          curl -f https://cloudide.dev/api/status || exit 1
+          
+          # Database connectivity check
+          curl -f https://cloudide.dev/api/health/database || exit 1
+          
+          # External service connectivity
+          curl -f https://cloudide.dev/api/health/services || exit 1
+
+      - name: Create GitHub Release
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ github.run_number }}
+          name: Release v${{ github.run_number }}
+          body: |
+            ## Changes in this release
+            ${{ github.event.head_commit.message }}
+            
+            ## Deployment Information
+            - **Deployed at**: ${{ github.event.head_commit.timestamp }}
+            - **Commit**: ${{ github.sha }}
+            - **Environment**: Production
+            
+            ## Artifacts
+            - Container Image: `${{ needs.build.outputs.image-tag }}`
+            - Build Size: ${{ env.BUILD_SIZE }}
+          files: |
+            build-artifacts.tar.gz
+            sbom.spdx.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  rollback-production:
+    name: Rollback Production
+    runs-on: ubuntu-latest
+    if: failure() && needs.deploy-production.result == 'failure'
+    needs: [deploy-production]
+    environment:
+      name: production
+      url: https://cloudide.dev
+    
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_PROD }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }}
+          aws-region: us-east-1
+
+      - name: Rollback to previous version
+        run: |
+          # Get previous task definition
+          PREV_TASK_DEF=$(aws ecs describe-services \
+            --cluster cloudide-production \
+            --services cloudide-app-production \
+            --query 'services[0].deployments[1].taskDefinition' --output text)
+          
+          # Update service with previous task definition
+          aws ecs update-service \
+            --cluster cloudide-production \
+            --service cloudide-app-production \
+            --task-definition $PREV_TASK_DEF \
+            --force-new-deployment
+          
+          # Wait for rollback to complete
+          aws ecs wait services-stable \
+            --cluster cloudide-production \
+            --services cloudide-app-production
+
+      - name: Verify rollback
+        run: |
+          curl -f https://cloudide.dev/health || exit 1
+          echo "✅ Rollback completed successfully"
+
+  notify:
+    name: Notify Team
+    runs-on: ubuntu-latest
+    needs: [deploy-staging, deploy-production]
+    if: always()
+    
+    steps:
+      - name: Notify Slack
+        uses: 8398a7/action-slack@v3
+        with:
+          status: custom
+          custom_payload: |
+            {
+              username: 'CloudIDE CI/CD',
+              icon_emoji: ':rocket:',
+              attachments: [{
+                color: '${{ needs.deploy-production.result == 'success' && 'good' || needs.deploy-staging.result == 'success' && 'warning' || 'danger' }}',
+                blocks: [{
+                  type: 'section',
+                  text: {
+                    type: 'mrkdwn',
+                    text: `*CloudIDE Deployment Update*\n\n*Branch:* ${process.env.GITHUB_REF_NAME}\n*Commit:* ${process.env.GITHUB_SHA.substring(0, 7)}\n*Staging:* ${{ needs.deploy-staging.result }}\n*Production:* ${{ needs.deploy-production.result || 'skipped' }}`
+                  }
+                }]
+              }]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Update status page
+        if: needs.deploy-production.result == 'success'
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.STATUS_PAGE_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "component_id": "${{ secrets.STATUS_PAGE_COMPONENT_ID }}",
+              "status": "operational",
+              "message": "Successfully deployed version ${{ github.run_number }}"
+            }' \
+            "https://api.statuspage.io/v1/pages/${{ secrets.STATUS_PAGE_ID }}/components"
