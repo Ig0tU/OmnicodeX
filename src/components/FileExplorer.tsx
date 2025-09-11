@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Folder, File, FolderOpen, Plus, GitBranch, Zap } from 'lucide-react';
+import { Folder, File, FolderOpen, Plus, GitBranch, Zap, FileJson, FileCode, FileText, FileImage } from 'lucide-react';
 
 interface FileNode {
   id: string;
   name: string;
   type: 'file' | 'folder';
+  content?: string;
   children?: FileNode[];
   isExpanded?: boolean;
   isNew?: boolean;
@@ -14,9 +15,32 @@ interface FileNode {
 
 interface FileExplorerProps {
   activeRequest: string | null;
+  onFileSelect: (file: { name: string; content: string }) => void;
+  selectedFile: string | null;
 }
 
-export const FileExplorer = ({ activeRequest }: FileExplorerProps) => {
+const getFileIcon = (fileName: string) => {
+  const extension = fileName.split('.').pop();
+  switch (extension) {
+    case 'tsx':
+    case 'jsx':
+      return <FileCode className="w-4 h-4 text-blue-400" />;
+    case 'html':
+      return <FileCode className="w-4 h-4 text-orange-400" />;
+    case 'json':
+      return <FileJson className="w-4 h-4 text-yellow-400" />;
+    case 'md':
+      return <FileText className="w-4 h-4 text-gray-400" />;
+    case 'png':
+    case 'jpg':
+    case 'svg':
+      return <FileImage className="w-4 h-4 text-purple-400" />;
+    default:
+      return <File className="w-4 h-4 text-muted-foreground" />;
+  }
+};
+
+export const FileExplorer = ({ activeRequest, onFileSelect, selectedFile }: FileExplorerProps) => {
   const [fileTree, setFileTree] = useState<FileNode[]>([
     {
       id: 'src',
@@ -30,8 +54,8 @@ export const FileExplorer = ({ activeRequest }: FileExplorerProps) => {
           type: 'folder',
           isExpanded: true,
           children: [
-            { id: 'App.tsx', name: 'App.tsx', type: 'file' },
-            { id: 'Header.tsx', name: 'Header.tsx', type: 'file' }
+            { id: 'App.tsx', name: 'App.tsx', type: 'file', content: 'export default function App() { return <h1>App</h1> }' },
+            { id: 'Header.tsx', name: 'Header.tsx', type: 'file', content: 'export default function Header() { return <header>Header</header> }' }
           ]
         },
         { id: 'pages', name: 'pages', type: 'folder', children: [] },
@@ -43,11 +67,11 @@ export const FileExplorer = ({ activeRequest }: FileExplorerProps) => {
       name: 'public',
       type: 'folder',
       children: [
-        { id: 'index.html', name: 'index.html', type: 'file' }
+        { id: 'index.html', name: 'index.html', type: 'file', content: '<html><body></body></html>' }
       ]
     },
-    { id: 'package.json', name: 'package.json', type: 'file' },
-    { id: 'README.md', name: 'README.md', type: 'file' }
+    { id: 'package.json', name: 'package.json', type: 'file', content: '{ "name": "my-app" }' },
+    { id: 'README.md', name: 'README.md', type: 'file', content: '# My App' }
   ]);
 
   const [recentFiles, setRecentFiles] = useState<Array<{ name: string, builderId: string, action: string }>>([]);
@@ -154,9 +178,17 @@ export const FileExplorer = ({ activeRequest }: FileExplorerProps) => {
       >
         <div
           className={`flex items-center gap-2 py-1 px-2 rounded cursor-pointer hover:bg-secondary/50 ${
+            selectedFile === node.name ? 'bg-primary/20' : ''
+          } ${
             node.isNew ? 'bg-primary/10 border-l-2 border-primary' : ''
           }`}
-          onClick={() => node.type === 'folder' && toggleFolder(node.id)}
+          onClick={() => {
+            if (node.type === 'folder') {
+              toggleFolder(node.id);
+            } else if (node.content) {
+              onFileSelect({ name: node.name, content: node.content });
+            }
+          }}
         >
           {node.type === 'folder' ? (
             node.isExpanded ? (
@@ -165,7 +197,7 @@ export const FileExplorer = ({ activeRequest }: FileExplorerProps) => {
               <Folder className="w-4 h-4 text-accent" />
             )
           ) : (
-            <File className="w-4 h-4 text-muted-foreground" />
+            getFileIcon(node.name)
           )}
           <span className={`text-sm ${node.isNew ? 'text-primary font-medium' : ''}`}>
             {node.name}
