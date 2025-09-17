@@ -1,0 +1,181 @@
+# Development Docker Compose configuration
+# Optimized for development workflow with hot reloading
+
+version: '3.8'
+
+services:
+  # Development frontend with hot reloading
+  frontend-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/dist
+    environment:
+      - NODE_ENV=development
+      - VITE_DEV_SERVER=true
+      - VITE_API_URL=http://localhost:3000
+      - VITE_WS_URL=ws://localhost:3000
+      - VITE_LOG_LEVEL=debug
+    networks:
+      - cloudide-dev-network
+    restart: unless-stopped
+    command: npm run dev
+
+  # Development backend with auto-restart
+  backend-dev:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+    ports:
+      - "3000:3000"
+      - "9229:9229"  # Node.js debugging port
+    environment:
+      - NODE_ENV=development
+      - DEBUG=*
+      - PORT=3000
+    networks:
+      - cloudide-dev-network
+    restart: unless-stopped
+    command: >
+      sh -c "
+        if [ ! -f package.json ]; then
+          npm init -y;
+          npm install express cors helmet morgan nodemon;
+          mkdir -p src;
+          cat > src/server.js << 'EOF'
+        const express = require('express');
+        const cors = require('cors');
+        const helmet = require('helmet');
+        const morgan = require('morgan');
+
+        const app = express();
+        const port = process.env.PORT || 3000;
+
+        app.use(helmet());
+        app.use(cors());
+        app.use(morgan('dev'));
+        app.use(express.json());
+
+        // Health check
+        app.get('/health', (req, res) => {
+          res.json({
+            status: 'healthy',
+            timestamp: new Date().toISOString(),
+            service: 'backend-api-dev',
+            environment: 'development'
+          });
+        });
+
+        // Development API endpoints
+        app.get('/api/status', (req, res) => {
+          res.json({
+            status: 'running',
+            version: '1.0.0-dev',
+            environment: 'development'
+          });
+        });
+
+        app.listen(port, '0.0.0.0', () => {
+          console.log(\`Development backend API listening on port \${port}\`);
+        });
+        EOF
+          cat > package.json << 'EOF'
+        {
+          "name": "cloudide-backend-dev",
+          "version": "1.0.0",
+          "description": "CloudIDE Backend Development Server",
+          "main": "src/server.js",
+          "scripts": {
+            "start": "node src/server.js",
+            "dev": "nodemon --inspect=0.0.0.0:9229 src/server.js"
+          },
+          "dependencies": {
+            "express": "^4.18.2",
+            "cors": "^2.8.5",
+            "helmet": "^7.0.0",
+            "morgan": "^1.10.0",
+            "nodemon": "^3.0.1"
+          }
+        }
+        EOF
+        fi;
+        npm run dev
+      "
+
+  # Redis for development
+  redis-dev:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - cloudide-dev-network
+    restart: unless-stopped
+
+  # PostgreSQL for development
+  postgres-dev:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: cloudide_dev
+      POSTGRES_USER: cloudide_dev
+      POSTGRES_PASSWORD: dev_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-dev-data:/var/lib/postgresql/data
+      - ./scripts/init-dev-db.sql:/docker-entrypoint-initdb.d/init-dev-db.sql:ro
+    networks:
+      - cloudide-dev-network
+    restart: unless-stopped
+
+  # Mailhog for email testing in development
+  mailhog:
+    image: mailhog/mailhog:latest
+    ports:
+      - "1025:1025"  # SMTP
+      - "8025:8025"  # Web UI
+    networks:
+      - cloudide-dev-network
+    restart: unless-stopped
+
+  # MinIO for S3-compatible object storage in development
+  minio:
+    image: minio/minio:latest
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+    volumes:
+      - minio-data:/data
+    networks:
+      - cloudide-dev-network
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+
+  # Adminer for database management
+  adminer:
+    image: adminer:latest
+    ports:
+      - "8082:8080"
+    networks:
+      - cloudide-dev-network
+    restart: unless-stopped
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres-dev
+
+networks:
+  cloudide-dev-network:
+    driver: bridge
+
+volumes:
+  postgres-dev-data:
+    driver: local
+  minio-data:
+    driver: local

@@ -1,0 +1,40 @@
+# Development Dockerfile for CloudIDE
+# Optimized for development workflow with hot reloading
+
+FROM node:20-alpine
+
+# Install development tools
+RUN apk add --no-cache \
+    git \
+    curl \
+    bash \
+    && rm -rf /var/cache/apk/*
+
+# Set working directory
+WORKDIR /app
+
+# Install global development tools
+RUN npm install -g nodemon concurrently
+
+# Copy package files
+COPY package.json package-lock.json ./
+
+# Install all dependencies (including dev dependencies)
+RUN npm ci --no-audit --no-fund
+
+# Copy source code
+COPY . .
+
+# Create non-root user for development
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S cloudide -u 1001 -G nodejs && \
+    chown -R cloudide:nodejs /app
+
+# Switch to non-root user
+USER cloudide
+
+# Expose development ports
+EXPOSE 8080 3000 9229
+
+# Development command with hot reloading
+CMD ["npm", "run", "dev"]
