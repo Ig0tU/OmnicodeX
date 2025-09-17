@@ -1,0 +1,87 @@
+# Dependabot configuration for automated dependency updates and security scanning
+
+version: 2
+updates:
+  # Enable version updates for npm dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "terragon-labs"
+    assignees:
+      - "terragon-labs"
+    commit-message:
+      prefix: "deps"
+      prefix-development: "deps-dev"
+      include: "scope"
+    # Auto-merge security updates
+    enable:
+      - "dependency-graph"
+      - "security-alerts"
+    ignore:
+      # Ignore patch updates for these packages to reduce noise
+      - dependency-name: "@types/*"
+        update-types: ["version-update:semver-patch"]
+      - dependency-name: "eslint*"
+        update-types: ["version-update:semver-patch"]
+    groups:
+      # Group React ecosystem updates
+      react-ecosystem:
+        patterns:
+          - "react*"
+          - "@types/react*"
+      # Group testing dependencies
+      testing:
+        patterns:
+          - "*testing*"
+          - "vitest*"
+          - "playwright*"
+          - "msw*"
+      # Group linting and formatting
+      dev-tools:
+        patterns:
+          - "eslint*"
+          - "typescript*"
+          - "prettier*"
+      # Group UI dependencies
+      ui-components:
+        patterns:
+          - "@radix-ui/*"
+          - "lucide-react"
+          - "tailwind*"
+
+  # Enable version updates for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/.github/workflows"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "terragon-labs"
+    assignees:
+      - "terragon-labs"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+
+  # Enable version updates for Docker dependencies
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "terragon-labs"
+    assignees:
+      - "terragon-labs"
+    commit-message:
+      prefix: "docker"
+      include: "scope"
