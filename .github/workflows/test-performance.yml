@@ -1,0 +1,416 @@
+# Performance Testing Workflow
+name: Performance Tests
+
+on:
+  schedule:
+    # Run performance tests daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      target_environment:
+        description: 'Environment to test'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+        - staging
+        - production
+      test_duration:
+        description: 'Test duration in minutes'
+        required: true
+        default: '10'
+        type: string
+
+permissions:
+  contents: read
+  actions: read
+  checks: write
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  lighthouse-performance:
+    name: Lighthouse Performance Audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Build application
+        run: npm run build
+
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v10
+        with:
+          configPath: ./.lighthouserc.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+          budgetPath: './lighthouse-budget.json'
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+      - name: Upload Lighthouse reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse-reports
+          path: |
+            .lighthouseci/
+            lighthouse-results.json
+
+  load-testing:
+    name: Load Testing with K6
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install K6
+        run: |
+          sudo gpg -k
+          sudo gpg --no-default-keyring --keyring /usr/share/keyrings/k6-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
+          echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+          sudo apt-get update
+          sudo apt-get install k6
+
+      - name: Run load tests
+        run: |
+          k6 run \
+            --duration=${{ github.event.inputs.test_duration || '10' }}m \
+            --vus=50 \
+            --out json=load-test-results.json \
+            tests/performance/load-test.js
+        env:
+          TARGET_URL: ${{ github.event.inputs.target_environment == 'production' && 'https://cloudide.dev' || 'https://staging.cloudide.dev' }}
+
+      - name: Upload load test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: load-test-results
+          path: load-test-results.json
+
+      - name: Analyze results
+        run: |
+          # Parse results and fail if thresholds are exceeded
+          node -e "
+            const fs = require('fs');
+            const results = JSON.parse(fs.readFileSync('load-test-results.json', 'utf8'));
+            const metrics = results.metrics;
+
+            console.log('Load Test Results:');
+            console.log('Average Response Time:', metrics.http_req_duration?.avg || 'N/A');
+            console.log('95th Percentile:', metrics.http_req_duration?.p95 || 'N/A');
+            console.log('Error Rate:', metrics.http_req_failed?.rate || 'N/A');
+
+            // Fail if thresholds exceeded
+            const avgResponseTime = metrics.http_req_duration?.avg || 0;
+            const errorRate = metrics.http_req_failed?.rate || 0;
+
+            if (avgResponseTime > 2000) {
+              console.error('FAIL: Average response time exceeded 2s threshold');
+              process.exit(1);
+            }
+
+            if (errorRate > 0.05) {
+              console.error('FAIL: Error rate exceeded 5% threshold');
+              process.exit(1);
+            }
+
+            console.log('✅ All performance thresholds passed');
+          "
+
+  bundle-analysis:
+    name: Bundle Size Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Analyze bundle size
+        run: |
+          npm run build
+
+          # Create bundle analysis
+          npx vite-bundle-analyzer dist --mode static --report bundle-report.html
+
+          # Get bundle sizes
+          echo "## Bundle Analysis" > bundle-analysis.md
+          echo "" >> bundle-analysis.md
+          echo "| File | Size | Gzipped |" >> bundle-analysis.md
+          echo "|------|------|---------|" >> bundle-analysis.md
+
+          cd dist/assets
+          for file in *.js *.css; do
+            if [ -f "$file" ]; then
+              size=$(stat -f%z "$file" 2>/dev/null || stat -c%s "$file")
+              gzipped=$(gzip -c "$file" | wc -c)
+              echo "| $file | $(numfmt --to=iec $size) | $(numfmt --to=iec $gzipped) |" >> ../../bundle-analysis.md
+            fi
+          done
+
+      - name: Comment bundle analysis
+        uses: actions/github-script@v7
+        if: github.event_name == 'pull_request'
+        with:
+          script: |
+            const fs = require('fs');
+            const analysis = fs.readFileSync('bundle-analysis.md', 'utf8');
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: analysis
+            });
+
+      - name: Upload bundle analysis
+        uses: actions/upload-artifact@v4
+        with:
+          name: bundle-analysis
+          path: |
+            bundle-analysis.md
+            bundle-report.html
+
+  memory-testing:
+    name: Memory Usage Testing
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          npm ci --legacy-peer-deps
+          npm install -g puppeteer
+
+      - name: Run memory tests
+        run: |
+          node -e "
+            const puppeteer = require('puppeteer');
+
+            (async () => {
+              const browser = await puppeteer.launch({
+                headless: true,
+                args: ['--no-sandbox', '--disable-dev-shm-usage']
+              });
+
+              const page = await browser.newPage();
+
+              // Monitor memory usage
+              await page.evaluateOnNewDocument(() => {
+                window.memoryResults = [];
+
+                const measureMemory = () => {
+                  const memory = performance.memory;
+                  window.memoryResults.push({
+                    timestamp: Date.now(),
+                    usedJSHeapSize: memory.usedJSHeapSize,
+                    totalJSHeapSize: memory.totalJSHeapSize,
+                    jsHeapSizeLimit: memory.jsHeapSizeLimit
+                  });
+                };
+
+                // Measure every 5 seconds
+                setInterval(measureMemory, 5000);
+                measureMemory(); // Initial measurement
+              });
+
+              // Load the application
+              await page.goto('http://localhost:8080', { waitUntil: 'networkidle0' });
+
+              // Simulate user interactions for 2 minutes
+              for (let i = 0; i < 24; i++) {
+                await page.click('button'); // Click various buttons
+                await page.waitForTimeout(5000);
+              }
+
+              // Get memory results
+              const memoryResults = await page.evaluate(() => window.memoryResults);
+
+              // Analyze memory usage
+              const initialMemory = memoryResults[0].usedJSHeapSize;
+              const finalMemory = memoryResults[memoryResults.length - 1].usedJSHeapSize;
+              const memoryGrowth = finalMemory - initialMemory;
+              const memoryGrowthPercent = (memoryGrowth / initialMemory) * 100;
+
+              console.log('Memory Analysis:');
+              console.log('Initial Memory:', (initialMemory / 1024 / 1024).toFixed(2), 'MB');
+              console.log('Final Memory:', (finalMemory / 1024 / 1024).toFixed(2), 'MB');
+              console.log('Memory Growth:', (memoryGrowth / 1024 / 1024).toFixed(2), 'MB');
+              console.log('Memory Growth %:', memoryGrowthPercent.toFixed(2), '%');
+
+              // Save results
+              require('fs').writeFileSync('memory-results.json', JSON.stringify(memoryResults, null, 2));
+
+              // Fail if memory growth is excessive
+              if (memoryGrowthPercent > 50) {
+                console.error('FAIL: Memory growth exceeded 50% threshold');
+                process.exit(1);
+              }
+
+              await browser.close();
+              console.log('✅ Memory usage within acceptable limits');
+            })();
+          "
+
+      - name: Upload memory test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: memory-test-results
+          path: memory-results.json
+
+  performance-regression:
+    name: Performance Regression Detection
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Build current version
+        run: npm run build
+
+      - name: Test current performance
+        run: |
+          # Run lighthouse on current build
+          npx lighthouse http://localhost:8080 \
+            --output=json \
+            --output-path=current-lighthouse.json \
+            --chrome-flags="--headless" &
+
+          # Start local server
+          npx serve -s dist -p 8080 &
+          sleep 10
+
+          wait
+
+      - name: Checkout base branch
+        run: |
+          git checkout ${{ github.base_ref }}
+          npm ci --legacy-peer-deps
+          npm run build
+
+      - name: Test base performance
+        run: |
+          # Run lighthouse on base build
+          npx lighthouse http://localhost:8081 \
+            --output=json \
+            --output-path=base-lighthouse.json \
+            --chrome-flags="--headless" &
+
+          # Start local server on different port
+          npx serve -s dist -p 8081 &
+          sleep 10
+
+          wait
+
+      - name: Compare performance
+        run: |
+          node -e "
+            const fs = require('fs');
+            const current = JSON.parse(fs.readFileSync('current-lighthouse.json', 'utf8'));
+            const base = JSON.parse(fs.readFileSync('base-lighthouse.json', 'utf8'));
+
+            const metrics = ['first-contentful-paint', 'largest-contentful-paint', 'interactive', 'cumulative-layout-shift'];
+
+            console.log('Performance Comparison:');
+            console.log('| Metric | Base | Current | Change |');
+            console.log('|--------|------|---------|--------|');
+
+            let hasRegression = false;
+
+            metrics.forEach(metric => {
+              const baseValue = base.audits[metric]?.numericValue || 0;
+              const currentValue = current.audits[metric]?.numericValue || 0;
+              const change = currentValue - baseValue;
+              const changePercent = baseValue > 0 ? (change / baseValue) * 100 : 0;
+
+              console.log(\`| \${metric} | \${baseValue.toFixed(0)} | \${currentValue.toFixed(0)} | \${change > 0 ? '+' : ''}\${change.toFixed(0)} (\${changePercent.toFixed(1)}%) |\`);
+
+              // Flag regression if performance worsens by more than 10%
+              if (changePercent > 10) {
+                hasRegression = true;
+              }
+            });
+
+            if (hasRegression) {
+              console.error('⚠️  Performance regression detected');
+              process.exit(1);
+            } else {
+              console.log('✅ No performance regression detected');
+            }
+          "
+
+  summary:
+    name: Performance Test Summary
+    runs-on: ubuntu-latest
+    needs: [lighthouse-performance, load-testing, bundle-analysis, memory-testing]
+    if: always()
+
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+
+      - name: Generate summary
+        run: |
+          echo "# Performance Test Summary" > performance-summary.md
+          echo "" >> performance-summary.md
+          echo "## Test Results" >> performance-summary.md
+          echo "" >> performance-summary.md
+
+          # Check job statuses
+          echo "| Test | Status |" >> performance-summary.md
+          echo "|------|--------|" >> performance-summary.md
+          echo "| Lighthouse | ${{ needs.lighthouse-performance.result }} |" >> performance-summary.md
+          echo "| Load Testing | ${{ needs.load-testing.result }} |" >> performance-summary.md
+          echo "| Bundle Analysis | ${{ needs.bundle-analysis.result }} |" >> performance-summary.md
+          echo "| Memory Testing | ${{ needs.memory-testing.result }} |" >> performance-summary.md
+
+      - name: Upload summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-summary
+          path: performance-summary.md

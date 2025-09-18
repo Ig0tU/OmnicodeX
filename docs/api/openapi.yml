@@ -1,0 +1,1494 @@
+openapi: 3.0.3
+info:
+  title: CloudIDE API
+  description: |
+    Comprehensive API for the CloudIDE platform that provides cloud-based development
+    environments with intelligent builders, task management, real-time collaboration,
+    and enterprise-grade security features.
+
+    This API enables developers to:
+    - Manage cloud development environments and builders
+    - Execute and monitor development tasks
+    - Handle file operations and project management
+    - Authenticate and manage user permissions
+    - Track performance and quality metrics
+
+  version: 1.0.0
+  contact:
+    name: CloudIDE Support
+    email: support@cloudide.dev
+    url: https://docs.cloudide.dev
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: https://api.cloudide.dev/v1
+    description: Production server
+  - url: https://staging-api.cloudide.dev/v1
+    description: Staging server
+  - url: http://localhost:3000/api
+    description: Development server
+
+security:
+  - BearerAuth: []
+  - ApiKeyAuth: []
+
+paths:
+  # Authentication Endpoints
+  /auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: User login
+      description: Authenticate user and return JWT token with user profile
+      operationId: loginUser
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                  description: Username or email address
+                  example: "developer@example.com"
+                password:
+                  type: string
+                  format: password
+                  description: User password
+                  example: "SecurePassword123!"
+                rememberMe:
+                  type: boolean
+                  description: Extended session duration
+                  default: false
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          token:
+                            type: string
+                            description: JWT authentication token
+                            example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                          user:
+                            $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+
+  /auth/logout:
+    post:
+      tags:
+        - Authentication
+      summary: User logout
+      description: Invalidate current session and JWT token
+      operationId: logoutUser
+      responses:
+        '200':
+          description: Logout successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /auth/me:
+    get:
+      tags:
+        - Authentication
+      summary: Get current user
+      description: Retrieve authenticated user profile and permissions
+      operationId: getCurrentUser
+      responses:
+        '200':
+          description: User profile retrieved
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/User'
+
+  # Builder Management Endpoints
+  /builders:
+    get:
+      tags:
+        - Builders
+      summary: List all builders
+      description: Retrieve all available cloud builders with their current status and capabilities
+      operationId: listBuilders
+      parameters:
+        - name: type
+          in: query
+          description: Filter builders by type
+          schema:
+            $ref: '#/components/schemas/BuilderType'
+        - name: status
+          in: query
+          description: Filter builders by status
+          schema:
+            $ref: '#/components/schemas/BuilderStatus'
+        - name: region
+          in: query
+          description: Filter builders by cloud region
+          schema:
+            type: string
+            example: "us-east-1"
+        - name: limit
+          in: query
+          description: Maximum number of builders to return
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+        - name: offset
+          in: query
+          description: Number of builders to skip for pagination
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+      responses:
+        '200':
+          description: Builders retrieved successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/BuilderDefinition'
+
+    post:
+      tags:
+        - Builders
+      summary: Create new builder
+      description: Provision a new cloud builder with specified configuration
+      operationId: createBuilder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - type
+                - environment
+                - resources
+              properties:
+                name:
+                  type: string
+                  description: Human-readable builder name
+                  example: "Frontend Development Builder"
+                type:
+                  $ref: '#/components/schemas/BuilderType'
+                environment:
+                  $ref: '#/components/schemas/CloudEnvironment'
+                resources:
+                  $ref: '#/components/schemas/ResourceAllocation'
+                capabilities:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/BuilderCapability'
+      responses:
+        '201':
+          description: Builder created successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/BuilderDefinition'
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+
+  /builders/{builderId}:
+    get:
+      tags:
+        - Builders
+      summary: Get builder details
+      description: Retrieve detailed information about a specific builder
+      operationId: getBuilder
+      parameters:
+        - name: builderId
+          in: path
+          required: true
+          description: Unique builder identifier
+          schema:
+            type: string
+            example: "builder-1"
+      responses:
+        '200':
+          description: Builder details retrieved
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/BuilderDefinition'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+
+    put:
+      tags:
+        - Builders
+      summary: Update builder configuration
+      description: Update builder settings, resources, or capabilities
+      operationId: updateBuilder
+      parameters:
+        - name: builderId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                resources:
+                  $ref: '#/components/schemas/ResourceAllocation'
+                capabilities:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/BuilderCapability'
+      responses:
+        '200':
+          description: Builder updated successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/BuilderDefinition'
+
+    delete:
+      tags:
+        - Builders
+      summary: Delete builder
+      description: Terminate and remove a builder instance
+      operationId: deleteBuilder
+      parameters:
+        - name: builderId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Builder deleted successfully
+        '409':
+          description: Builder has active tasks and cannot be deleted
+
+  # Task Management Endpoints
+  /tasks:
+    get:
+      tags:
+        - Tasks
+      summary: List tasks
+      description: Retrieve tasks with filtering and pagination options
+      operationId: listTasks
+      parameters:
+        - name: builderId
+          in: query
+          description: Filter tasks by builder ID
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Filter tasks by status
+          schema:
+            $ref: '#/components/schemas/TaskStatus'
+        - name: type
+          in: query
+          description: Filter tasks by type
+          schema:
+            $ref: '#/components/schemas/TaskType'
+        - name: priority
+          in: query
+          description: Filter tasks by priority
+          schema:
+            $ref: '#/components/schemas/TaskPriority'
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+      responses:
+        '200':
+          description: Tasks retrieved successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/BuildTask'
+
+    post:
+      tags:
+        - Tasks
+      summary: Create new task
+      description: Submit a new development task to be executed by a builder
+      operationId: createTask
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - builderId
+                - type
+                - requirements
+              properties:
+                builderId:
+                  type: string
+                  description: Target builder for task execution
+                  example: "builder-1"
+                type:
+                  $ref: '#/components/schemas/TaskType'
+                priority:
+                  $ref: '#/components/schemas/TaskPriority'
+                requirements:
+                  $ref: '#/components/schemas/TaskRequirements'
+                dependencies:
+                  type: array
+                  items:
+                    type: string
+                  description: Task IDs that must complete before this task
+      responses:
+        '201':
+          description: Task created successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/BuildTask'
+
+  /tasks/{taskId}:
+    get:
+      tags:
+        - Tasks
+      summary: Get task details
+      description: Retrieve detailed task information including progress and metrics
+      operationId: getTask
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Task details retrieved
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/BuildTask'
+
+    put:
+      tags:
+        - Tasks
+      summary: Update task
+      description: Update task priority, requirements, or cancel execution
+      operationId: updateTask
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                priority:
+                  $ref: '#/components/schemas/TaskPriority'
+                status:
+                  $ref: '#/components/schemas/TaskStatus'
+                requirements:
+                  $ref: '#/components/schemas/TaskRequirements'
+      responses:
+        '200':
+          description: Task updated successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/BuildTask'
+
+  # File System Endpoints
+  /files:
+    get:
+      tags:
+        - Files
+      summary: List files and directories
+      description: Retrieve file system structure for the current workspace
+      operationId: listFiles
+      parameters:
+        - name: path
+          in: query
+          description: Directory path to list (defaults to root)
+          schema:
+            type: string
+            example: "src/components"
+        - name: recursive
+          in: query
+          description: Include subdirectories recursively
+          schema:
+            type: boolean
+            default: false
+        - name: includeHidden
+          in: query
+          description: Include hidden files and directories
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: File listing retrieved
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          files:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/FileSystemItem'
+
+  /files/{path}:
+    get:
+      tags:
+        - Files
+      summary: Get file content
+      description: Retrieve the content of a specific file
+      operationId: getFileContent
+      parameters:
+        - name: path
+          in: path
+          required: true
+          description: File path
+          schema:
+            type: string
+          example: "src/App.tsx"
+      responses:
+        '200':
+          description: File content retrieved
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/FileContent'
+            text/plain:
+              schema:
+                type: string
+                description: Raw file content
+
+    put:
+      tags:
+        - Files
+      summary: Update file content
+      description: Save new content to an existing file
+      operationId: updateFileContent
+      parameters:
+        - name: path
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - content
+              properties:
+                content:
+                  type: string
+                  description: New file content
+                encoding:
+                  type: string
+                  enum: [utf8, base64]
+                  default: utf8
+          text/plain:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: File updated successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/FileContent'
+
+    post:
+      tags:
+        - Files
+      summary: Create new file
+      description: Create a new file with specified content
+      operationId: createFile
+      parameters:
+        - name: path
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - content
+              properties:
+                content:
+                  type: string
+                encoding:
+                  type: string
+                  enum: [utf8, base64]
+                  default: utf8
+      responses:
+        '201':
+          description: File created successfully
+
+    delete:
+      tags:
+        - Files
+      summary: Delete file
+      description: Remove a file from the workspace
+      operationId: deleteFile
+      parameters:
+        - name: path
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: File deleted successfully
+
+  # WebSocket Connection
+  /ws:
+    get:
+      tags:
+        - WebSocket
+      summary: WebSocket connection
+      description: Establish WebSocket connection for real-time updates
+      operationId: connectWebSocket
+      responses:
+        '101':
+          description: WebSocket connection established
+        '400':
+          description: Invalid WebSocket request
+
+  # Health Check
+  /health:
+    get:
+      tags:
+        - System
+      summary: Health check
+      description: Check API and service health status
+      operationId: healthCheck
+      security: []
+      responses:
+        '200':
+          description: System is healthy
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          status:
+                            type: string
+                            enum: [healthy, degraded, unhealthy]
+                          timestamp:
+                            type: string
+                            format: date-time
+                          services:
+                            type: object
+                            properties:
+                              database:
+                                type: string
+                                enum: [connected, disconnected, error]
+                              redis:
+                                type: string
+                                enum: [connected, disconnected, error]
+                              websocket:
+                                type: string
+                                enum: [connected, disconnected, error]
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+
+  schemas:
+    # Core API Response
+    ApiResponse:
+      type: object
+      required:
+        - success
+        - metadata
+      properties:
+        success:
+          type: boolean
+          description: Request success status
+        data:
+          description: Response payload (structure varies by endpoint)
+        error:
+          $ref: '#/components/schemas/ApiError'
+        metadata:
+          $ref: '#/components/schemas/ResponseMetadata'
+
+    ApiError:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          description: Error code for programmatic handling
+          example: "VALIDATION_ERROR"
+        message:
+          type: string
+          description: Human-readable error message
+          example: "Invalid input parameters"
+        details:
+          type: object
+          description: Additional error context
+          additionalProperties: true
+
+    ResponseMetadata:
+      type: object
+      required:
+        - requestId
+        - timestamp
+        - version
+        - processingTime
+      properties:
+        requestId:
+          type: string
+          description: Unique request identifier
+          example: "req_1234567890"
+        timestamp:
+          type: string
+          format: date-time
+          description: Response timestamp
+        version:
+          type: string
+          description: API version
+          example: "1.0.0"
+        processingTime:
+          type: number
+          description: Request processing time in milliseconds
+          example: 150
+
+    # Authentication Types
+    User:
+      type: object
+      required:
+        - id
+        - username
+        - email
+        - roles
+        - permissions
+        - profile
+      properties:
+        id:
+          type: string
+          description: Unique user identifier
+          example: "user-123"
+        username:
+          type: string
+          description: Username
+          example: "developer"
+        email:
+          type: string
+          format: email
+          description: User email address
+          example: "developer@example.com"
+        roles:
+          type: array
+          items:
+            type: string
+          description: User roles
+          example: ["user", "developer"]
+        permissions:
+          type: array
+          items:
+            type: string
+          description: User permissions
+          example: ["read", "write", "execute"]
+        profile:
+          $ref: '#/components/schemas/UserProfile'
+
+    UserProfile:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - timezone
+        - locale
+      properties:
+        firstName:
+          type: string
+          example: "John"
+        lastName:
+          type: string
+          example: "Developer"
+        avatar:
+          type: string
+          format: uri
+          description: Avatar image URL
+        timezone:
+          type: string
+          description: User timezone
+          example: "UTC"
+        locale:
+          type: string
+          description: User locale
+          example: "en-US"
+
+    # Builder Types
+    BuilderDefinition:
+      type: object
+      required:
+        - id
+        - name
+        - type
+        - capabilities
+        - environment
+        - resources
+        - status
+        - metadata
+      properties:
+        id:
+          type: string
+          description: Unique builder identifier
+          example: "builder-1"
+        name:
+          type: string
+          description: Human-readable builder name
+          example: "Frontend Builder"
+        type:
+          $ref: '#/components/schemas/BuilderType'
+        capabilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuilderCapability'
+        environment:
+          $ref: '#/components/schemas/CloudEnvironment'
+        resources:
+          $ref: '#/components/schemas/ResourceAllocation'
+        status:
+          $ref: '#/components/schemas/BuilderStatus'
+        metadata:
+          $ref: '#/components/schemas/BuilderMetadata'
+
+    BuilderType:
+      type: string
+      enum:
+        - frontend
+        - backend
+        - database
+        - devops
+        - security
+        - testing
+        - ai-ml
+      description: Builder specialization type
+
+    BuilderStatus:
+      type: string
+      enum:
+        - initializing
+        - idle
+        - analyzing
+        - coding
+        - testing
+        - building
+        - deploying
+        - complete
+        - error
+        - timeout
+        - suspended
+      description: Current builder status
+
+    BuilderCapability:
+      type: object
+      required:
+        - name
+        - version
+        - dependencies
+      properties:
+        name:
+          type: string
+          description: Technology or tool name
+          example: "React"
+        version:
+          type: string
+          description: Version information
+          example: "18.3.1"
+        dependencies:
+          type: array
+          items:
+            type: string
+          description: Required dependencies
+
+    CloudEnvironment:
+      type: object
+      required:
+        - region
+        - provider
+        - instanceType
+        - endpoint
+      properties:
+        region:
+          type: string
+          description: Cloud provider region
+          example: "us-east-1"
+        provider:
+          type: string
+          enum: [aws, azure, gcp, local]
+          description: Cloud provider
+        instanceType:
+          type: string
+          description: Instance type/size
+          example: "t3.medium"
+        endpoint:
+          type: string
+          format: uri
+          description: Builder endpoint URL
+          example: "https://builder-1.aws.com"
+
+    ResourceAllocation:
+      type: object
+      required:
+        - cpu
+        - memory
+        - storage
+        - networkBandwidth
+      properties:
+        cpu:
+          type: number
+          description: CPU cores allocated
+          example: 2
+        memory:
+          type: number
+          description: Memory in MB
+          example: 4096
+        storage:
+          type: number
+          description: Storage in GB
+          example: 100
+        networkBandwidth:
+          type: number
+          description: Network bandwidth in Mbps
+          example: 1000
+
+    BuilderMetadata:
+      type: object
+      required:
+        - createdAt
+        - lastActive
+        - totalTasks
+        - successfulTasks
+        - averageCompletionTime
+        - currentLoad
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+          description: Builder creation timestamp
+        lastActive:
+          type: string
+          format: date-time
+          description: Last activity timestamp
+        totalTasks:
+          type: integer
+          description: Total tasks executed
+          example: 150
+        successfulTasks:
+          type: integer
+          description: Successfully completed tasks
+          example: 145
+        averageCompletionTime:
+          type: number
+          description: Average task completion time in seconds
+          example: 300
+        currentLoad:
+          type: number
+          description: Current resource utilization percentage
+          example: 25
+
+    # Task Types
+    BuildTask:
+      type: object
+      required:
+        - id
+        - builderId
+        - type
+        - priority
+        - requirements
+        - status
+        - progress
+        - artifacts
+        - dependencies
+        - timeline
+        - metrics
+      properties:
+        id:
+          type: string
+          description: Unique task identifier
+          example: "task-1"
+        builderId:
+          type: string
+          description: Assigned builder ID
+          example: "builder-1"
+        type:
+          $ref: '#/components/schemas/TaskType'
+        priority:
+          $ref: '#/components/schemas/TaskPriority'
+        requirements:
+          $ref: '#/components/schemas/TaskRequirements'
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+        progress:
+          $ref: '#/components/schemas/TaskProgress'
+        artifacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskArtifact'
+        dependencies:
+          type: array
+          items:
+            type: string
+          description: Task dependency IDs
+        timeline:
+          $ref: '#/components/schemas/TaskTimeline'
+        metrics:
+          $ref: '#/components/schemas/TaskMetrics'
+
+    TaskType:
+      type: string
+      enum:
+        - create
+        - update
+        - delete
+        - test
+        - deploy
+        - analyze
+        - optimize
+        - security-audit
+      description: Task operation type
+
+    TaskPriority:
+      type: string
+      enum: [critical, high, medium, low]
+      description: Task execution priority
+
+    TaskStatus:
+      type: string
+      enum: [queued, in-progress, blocked, completed, failed, cancelled]
+      description: Current task status
+
+    TaskRequirements:
+      type: object
+      required:
+        - description
+        - specifications
+        - constraints
+        - expectedOutcome
+      properties:
+        description:
+          type: string
+          description: Task description
+          example: "Create React component with TypeScript"
+        specifications:
+          type: object
+          additionalProperties: true
+          description: Technical specifications
+        constraints:
+          $ref: '#/components/schemas/TaskConstraints'
+        expectedOutcome:
+          type: string
+          description: Expected result description
+
+    TaskConstraints:
+      type: object
+      required:
+        - maxExecutionTime
+        - maxMemoryUsage
+        - requiredCapabilities
+        - securityLevel
+      properties:
+        maxExecutionTime:
+          type: number
+          description: Maximum execution time in seconds
+          example: 600
+        maxMemoryUsage:
+          type: number
+          description: Maximum memory usage in MB
+          example: 512
+        requiredCapabilities:
+          type: array
+          items:
+            type: string
+          description: Required builder capabilities
+        securityLevel:
+          type: string
+          enum: [low, medium, high, critical]
+          description: Security compliance level
+
+    TaskProgress:
+      type: object
+      required:
+        - percentage
+        - currentStep
+        - totalSteps
+        - completedSteps
+        - estimatedTimeRemaining
+      properties:
+        percentage:
+          type: number
+          minimum: 0
+          maximum: 100
+          description: Completion percentage
+        currentStep:
+          type: string
+          description: Current execution step
+        totalSteps:
+          type: integer
+          description: Total number of steps
+        completedSteps:
+          type: integer
+          description: Completed steps count
+        estimatedTimeRemaining:
+          type: number
+          description: Estimated time remaining in seconds
+
+    TaskArtifact:
+      type: object
+      required:
+        - id
+        - name
+        - type
+        - size
+        - url
+        - checksum
+        - metadata
+      properties:
+        id:
+          type: string
+          description: Artifact identifier
+        name:
+          type: string
+          description: Artifact name
+        type:
+          type: string
+          enum: [source-code, binary, documentation, test-result, deployment-config, report]
+        size:
+          type: number
+          description: Artifact size in bytes
+        url:
+          type: string
+          format: uri
+          description: Download URL
+        checksum:
+          type: string
+          description: File checksum for integrity verification
+        metadata:
+          type: object
+          additionalProperties: true
+
+    TaskTimeline:
+      type: object
+      required:
+        - createdAt
+        - estimatedDuration
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        startedAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+        estimatedDuration:
+          type: number
+          description: Estimated duration in seconds
+        actualDuration:
+          type: number
+          description: Actual duration in seconds
+
+    TaskMetrics:
+      type: object
+      required:
+        - resourceUsage
+        - performanceMetrics
+        - qualityMetrics
+      properties:
+        resourceUsage:
+          $ref: '#/components/schemas/ResourceUsage'
+        performanceMetrics:
+          $ref: '#/components/schemas/PerformanceMetrics'
+        qualityMetrics:
+          $ref: '#/components/schemas/QualityMetrics'
+
+    ResourceUsage:
+      type: object
+      required:
+        - cpuUtilization
+        - memoryUsage
+        - diskIO
+        - networkIO
+      properties:
+        cpuUtilization:
+          type: number
+          description: CPU utilization percentage
+        memoryUsage:
+          type: number
+          description: Memory usage in MB
+        diskIO:
+          type: number
+          description: Disk I/O in MB/s
+        networkIO:
+          type: number
+          description: Network I/O in MB/s
+
+    PerformanceMetrics:
+      type: object
+      required:
+        - executionTime
+        - throughput
+        - latency
+        - errorRate
+      properties:
+        executionTime:
+          type: number
+          description: Execution time in seconds
+        throughput:
+          type: number
+          description: Tasks per minute
+        latency:
+          type: number
+          description: Response latency in milliseconds
+        errorRate:
+          type: number
+          description: Error rate percentage
+
+    QualityMetrics:
+      type: object
+      required:
+        - codeQuality
+        - testCoverage
+        - securityScore
+        - performanceScore
+      properties:
+        codeQuality:
+          type: number
+          minimum: 0
+          maximum: 100
+          description: Code quality score
+        testCoverage:
+          type: number
+          minimum: 0
+          maximum: 100
+          description: Test coverage percentage
+        securityScore:
+          type: number
+          minimum: 0
+          maximum: 100
+          description: Security assessment score
+        performanceScore:
+          type: number
+          minimum: 0
+          maximum: 100
+          description: Performance score
+
+    # File System Types
+    FileSystemItem:
+      type: object
+      required:
+        - name
+        - type
+      properties:
+        name:
+          type: string
+          description: File or directory name
+        type:
+          type: string
+          enum: [file, directory]
+        size:
+          type: number
+          description: File size in bytes (files only)
+        lastModified:
+          type: string
+          format: date-time
+        permissions:
+          type: string
+          description: File permissions
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/FileSystemItem'
+          description: Child items (directories only)
+
+    FileContent:
+      type: object
+      required:
+        - path
+        - content
+        - lastModified
+        - size
+      properties:
+        path:
+          type: string
+          description: File path
+        content:
+          type: string
+          description: File content
+        lastModified:
+          type: string
+          format: date-time
+        size:
+          type: number
+          description: File size in bytes
+        encoding:
+          type: string
+          description: Content encoding
+          default: utf8
+
+  responses:
+    BadRequestError:
+      description: Bad request - invalid parameters
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ApiResponse'
+              - type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/ApiError'
+
+    UnauthorizedError:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ApiResponse'
+              - type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: "UNAUTHORIZED"
+                      message:
+                        type: string
+                        example: "Authentication required"
+
+    ForbiddenError:
+      description: Access forbidden - insufficient permissions
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ApiResponse'
+              - type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: "FORBIDDEN"
+                      message:
+                        type: string
+                        example: "Insufficient permissions"
+
+    NotFoundError:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ApiResponse'
+              - type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: "NOT_FOUND"
+                      message:
+                        type: string
+                        example: "Resource not found"
+
+    ValidationError:
+      description: Validation error - invalid input data
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ApiResponse'
+              - type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: "VALIDATION_ERROR"
+                      message:
+                        type: string
+                        example: "Input validation failed"
+                      details:
+                        type: object
+                        properties:
+                          fields:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                field:
+                                  type: string
+                                message:
+                                  type: string
+                                code:
+                                  type: string
+
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ApiResponse'
+              - type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: "INTERNAL_ERROR"
+                      message:
+                        type: string
+                        example: "An internal error occurred"
+
+tags:
+  - name: Authentication
+    description: User authentication and session management
+  - name: Builders
+    description: Cloud builder management and configuration
+  - name: Tasks
+    description: Development task creation and monitoring
+  - name: Files
+    description: File system operations and content management
+  - name: WebSocket
+    description: Real-time communication and updates
+  - name: System
+    description: System health and monitoring endpoints

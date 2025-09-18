@@ -1,0 +1,214 @@
+# Docker Compose configuration for CloudIDE
+# Production-ready multi-service setup
+
+version: '3.8'
+
+services:
+  # Frontend Application
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+      args:
+        VITE_APP_VERSION: ${VITE_APP_VERSION:-development}
+        VITE_BUILD_DATE: ${VITE_BUILD_DATE:-$(date -u +"%Y-%m-%dT%H:%M:%SZ")}
+        VITE_GIT_HASH: ${VITE_GIT_HASH:-$(git rev-parse --short HEAD)}
+        NODE_ENV: production
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=production
+      - VITE_API_URL=http://backend:3000
+      - VITE_WS_URL=ws://backend:3000
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - cloudide-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.cloudide-frontend.rule=Host(`cloudide.local`)"
+      - "traefik.http.services.cloudide-frontend.loadbalancer.server.port=8080"
+
+  # Backend API (placeholder for future implementation)
+  backend:
+    image: node:20-alpine
+    working_dir: /app
+    command: >
+      sh -c "
+        echo 'Backend service placeholder';
+        echo 'Starting mock API server...';
+        npm init -y;
+        npm install express cors helmet morgan;
+        cat > server.js << 'EOF'
+        const express = require('express');
+        const cors = require('cors');
+        const helmet = require('helmet');
+        const morgan = require('morgan');
+
+        const app = express();
+        const port = 3000;
+
+        app.use(helmet());
+        app.use(cors());
+        app.use(morgan('combined'));
+        app.use(express.json());
+
+        // Health check
+        app.get('/health', (req, res) => {
+          res.json({
+            status: 'healthy',
+            timestamp: new Date().toISOString(),
+            service: 'backend-api'
+          });
+        });
+
+        // Mock API endpoints
+        app.get('/api/status', (req, res) => {
+          res.json({ status: 'running', version: '1.0.0' });
+        });
+
+        app.listen(port, () => {
+          console.log(\`Backend API listening on port \${port}\`);
+        });
+        EOF
+        node server.js
+      "
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    networks:
+      - cloudide-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  # Redis for caching and session storage
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-cloudide-redis-pass}
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - cloudide-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # PostgreSQL database (for future backend)
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-cloudide}
+      POSTGRES_USER: ${POSTGRES_USER:-cloudide}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-cloudide-db-pass}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
+    networks:
+      - cloudide-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-cloudide} -d ${POSTGRES_DB:-cloudide}"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Monitoring and logging with Prometheus (optional)
+  prometheus:
+    image: prom/prometheus:latest
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    networks:
+      - cloudide-network
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+  # Log aggregation with Grafana (optional)
+  grafana:
+    image: grafana/grafana:latest
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD:-admin}
+      GF_USERS_ALLOW_SIGN_UP: false
+    ports:
+      - "3001:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+    networks:
+      - cloudide-network
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+  # Load balancer and reverse proxy
+  traefik:
+    image: traefik:v3.0
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8081:8080"  # Traefik dashboard
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - cloudide-network
+    restart: unless-stopped
+    profiles:
+      - load-balancer
+
+networks:
+  cloudide-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes:
+  postgres-data:
+    driver: local
+  redis-data:
+    driver: local
+  prometheus-data:
+    driver: local
+  grafana-data:
+    driver: local
