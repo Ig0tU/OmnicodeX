@@ -1,0 +1,27 @@
+{
+  "browserSettings": {
+    "headless": false,
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "timeout": 30000
+  },
+  "agentSettings": {
+    "maxIterations": 20,
+    "delayBetweenActions": 1000,
+    "screenshotOnEachStep": true,
+    "maxMemoryEntries": 100
+  },
+  "geminiSettings": {
+    "model": "gemini-pro",
+    "temperature": 0.7,
+    "maxTokens": 1024
+  },
+  "defaultGoals": [
+    "Navigate to Google and search for 'autonomous agents'",
+    "Find and click on the first search result",
+    "Take a screenshot of the page"
+  ]
+}
