@@ -3,6 +3,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { query } from '../db';
+import { SecureExecutor } from './secureExecutor';
 
 interface AgentConfig {
   browserSettings: {
@@ -225,15 +226,22 @@ class AgentRunner {
         runId: this.currentRun.runId
       };
 
-      // Dynamic import and execution of the core script
-      // Note: In a production environment, you'd want to use a more secure method
-      // than eval, such as a sandboxed execution environment
-      const executeAgent = new Function(
-        'context',
-        `${coreScript}\nreturn executeAgent(context);`
-      );
+      // Execute the core script using secure VM2 sandbox
+      const secureExecutor = SecureExecutor.getInstance();
 
-      await executeAgent(agentContext);
+      // Validate the core script before execution
+      const validation = secureExecutor.validateCode(coreScript);
+      if (!validation.isValid) {
+        throw new Error(`Core script validation failed: ${validation.reason}`);
+      }
+
+      await this.updateStatus('Executing agent script in secure sandbox...');
+
+      const executionResult = await secureExecutor.executeAgentScript(coreScript, agentContext);
+
+      if (!executionResult.success) {
+        throw new Error(`Agent script execution failed: ${executionResult.error}`);
+      }
 
       // Agent completed successfully
       await this.updateStatus('Agent execution completed');
