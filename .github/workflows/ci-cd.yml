@@ -78,17 +78,26 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
-      - name: Install dependencies
+      - name: Install frontend dependencies
         run: npm ci
 
-      - name: Lint code
+      - name: Install backend dependencies
+        run: cd backend && npm ci
+
+      - name: Lint frontend code
         run: npm run lint
 
-      - name: Type check
+      - name: Type check frontend
         run: npm run typecheck
 
-      - name: Run tests
+      - name: Type check backend
+        run: cd backend && npm run typecheck
+
+      - name: Run frontend tests
         run: npm run test:coverage
+
+      - name: Run backend tests
+        run: cd backend && npm run test
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
@@ -122,11 +131,17 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
 
-      - name: Install dependencies
+      - name: Install frontend dependencies
         run: npm ci
 
-      - name: Build application
+      - name: Install backend dependencies
+        run: cd backend && npm ci
+
+      - name: Build frontend application
         run: npm run build
+
+      - name: Build backend application
+        run: cd backend && npm run build
         env:
           NODE_ENV: production
 

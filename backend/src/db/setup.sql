@@ -12,13 +12,13 @@ CREATE TABLE IF NOT EXISTS memories (
     type VARCHAR(50) NOT NULL CHECK (type IN ('observation', 'thought', 'action')),
     timestamp TIMESTAMPTZ DEFAULT NOW(),
     metadata JSONB DEFAULT '{}',
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-
-    -- Create index for faster queries
-    INDEX idx_memories_run_id (run_id),
-    INDEX idx_memories_type (type),
-    INDEX idx_memories_timestamp (timestamp)
+    created_at TIMESTAMPTZ DEFAULT NOW()
 );
+
+-- Create indexes for memories table
+CREATE INDEX IF NOT EXISTS idx_memories_run_id ON memories (run_id);
+CREATE INDEX IF NOT EXISTS idx_memories_type ON memories (type);
+CREATE INDEX IF NOT EXISTS idx_memories_timestamp ON memories (timestamp);
 
 -- Create tools table
 CREATE TABLE IF NOT EXISTS tools (
@@ -32,13 +32,13 @@ CREATE TABLE IF NOT EXISTS tools (
     is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW(),
-    metadata JSONB DEFAULT '{}',
-
-    -- Create index for faster queries
-    INDEX idx_tools_name (name),
-    INDEX idx_tools_category (category),
-    INDEX idx_tools_active (is_active)
+    metadata JSONB DEFAULT '{}'
 );
+
+-- Create indexes for tools table
+CREATE INDEX IF NOT EXISTS idx_tools_name ON tools (name);
+CREATE INDEX IF NOT EXISTS idx_tools_category ON tools (category);
+CREATE INDEX IF NOT EXISTS idx_tools_active ON tools (is_active);
 
 -- Create agent_runs table to track execution sessions
 CREATE TABLE IF NOT EXISTS agent_runs (
@@ -54,13 +54,13 @@ CREATE TABLE IF NOT EXISTS agent_runs (
     total_actions INTEGER DEFAULT 0,
     metadata JSONB DEFAULT '{}',
     created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW(),
-
-    -- Create indexes
-    INDEX idx_agent_runs_run_id (run_id),
-    INDEX idx_agent_runs_status (status),
-    INDEX idx_agent_runs_start_time (start_time)
+    updated_at TIMESTAMPTZ DEFAULT NOW()
 );
+
+-- Create indexes for agent_runs table
+CREATE INDEX IF NOT EXISTS idx_agent_runs_run_id ON agent_runs (run_id);
+CREATE INDEX IF NOT EXISTS idx_agent_runs_status ON agent_runs (status);
+CREATE INDEX IF NOT EXISTS idx_agent_runs_start_time ON agent_runs (start_time);
 
 -- Insert some default tools
 INSERT INTO tools (name, description, code, category) VALUES
@@ -153,9 +153,18 @@ END;
 $$ language 'plpgsql';
 
 -- Create triggers to automatically update timestamps
-CREATE TRIGGER update_tools_updated_at BEFORE UPDATE ON tools FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
-CREATE TRIGGER update_agent_runs_updated_at BEFORE UPDATE ON agent_runs FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+DROP TRIGGER IF EXISTS update_tools_updated_at ON tools;
+CREATE TRIGGER update_tools_updated_at
+    BEFORE UPDATE ON tools
+    FOR EACH ROW
+    EXECUTE FUNCTION update_updated_at_column();
 
--- Grant necessary permissions (adjust as needed for your database user)
+DROP TRIGGER IF EXISTS update_agent_runs_updated_at ON agent_runs;
+CREATE TRIGGER update_agent_runs_updated_at
+    BEFORE UPDATE ON agent_runs
+    FOR EACH ROW
+    EXECUTE FUNCTION update_updated_at_column();
+
+-- Grant necessary permissions (uncomment and adjust for your database user)
 -- GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO your_username;
 -- GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO your_username;

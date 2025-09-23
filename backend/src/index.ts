@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import { initDatabase } from './db';
 import { scriptRoutes } from './api/script';
 import { configRoutes } from './api/config';
 import { agentRoutes } from './api/agent';
@@ -51,12 +52,29 @@ app.use('*', (req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`🚀 Autonomous Agent Backend running on port ${PORT}`);
-  console.log(`📊 Health check: http://localhost:${PORT}/health`);
-  console.log(`🔗 API Base URL: http://localhost:${PORT}/api`);
-});
+// Initialize database and start server
+async function startServer() {
+  try {
+    // Initialize database connection
+    console.log('🔌 Initializing database connection...');
+    initDatabase();
+    console.log('✅ Database connection initialized');
+
+    // Start the Express server
+    app.listen(PORT, () => {
+      console.log(`🚀 Autonomous Agent Backend running on port ${PORT}`);
+      console.log(`📊 Health check: http://localhost:${PORT}/health`);
+      console.log(`🔗 API Base URL: http://localhost:${PORT}/api`);
+      console.log('🎯 Ready to accept requests');
+    });
+  } catch (error) {
+    console.error('❌ Failed to start server:', error);
+    process.exit(1);
+  }
+}
+
+// Start the server
+startServer();
 
 // Graceful shutdown
 process.on('SIGTERM', () => {

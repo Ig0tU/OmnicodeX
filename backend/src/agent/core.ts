@@ -143,10 +143,14 @@ If you believe the goal has been achieved, set "complete": true.
           const tool = tools.find(t => t.name === decision.tool);
           if (tool) {
             try {
-              // Execute tool code (basic eval - in production, use a sandbox)
-              const toolFunction = new Function('page', 'context', tool.code);
-              await toolFunction(page, context);
-              await addMemory(`Executed tool: ${decision.tool}`, 'action');
+              // Tool execution is now handled by SecureExecutor in agentRunner
+              // This is a placeholder - actual execution happens in the backend
+              await addMemory(`Tool execution requested: ${decision.tool}`, 'action');
+
+              // For now, we'll skip tool execution in the core script
+              // In a more advanced implementation, this would be a secure IPC call
+              await addMemory(`Tool execution skipped for security (would execute: ${decision.tool})`, 'observation');
+
             } catch (toolError) {
               await addMemory(`Tool execution error: ${toolError}`, 'observation');
             }
