@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ChatInterface } from '../components/ChatInterface';
 import { BuilderPanel } from '../components/BuilderPanel';
-import { FileExplorer } from '../components/FileExplorer';
-import { MonacoEditor } from '../components/enhanced/MonacoEditor';
+import { FileExplorerEnhanced } from '../components/enhanced/FileExplorerEnhanced';
+import { CodeEditor } from '../components/CodeEditor';
 import { Terminal } from '../components/Terminal';
 import { Monitor, Cloud, Zap, Code, Database, Shield, Sun, Moon } from 'lucide-react';
 import { useAppStore, useActiveTasks, useTaskActions } from '../store';
@@ -108,7 +108,7 @@ const Index = () => {
         >
           <div className="h-full flex flex-col">
             <div className="flex-1 p-3">
-              <FileExplorer
+              <FileExplorerEnhanced
                 activeRequest={activeRequest}
                 onFileSelect={handleFileSelect}
                 selectedFile={selectedFile}
@@ -127,11 +127,8 @@ const Index = () => {
           className="flex-1 flex flex-col"
         >
           <div className="flex-1 p-3 relative">
-            <MonacoEditor
-              value={editorContent}
-              language="typescript"
-              onChange={(value) => setEditorContent(value || '')}
-              theme={theme}
+            <CodeEditor
+              activeRequest={activeRequest}
             />
             {tasks.some(t => t.status === 'in-progress') && (
               <motion.div

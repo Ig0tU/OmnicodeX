@@ -1,0 +1,2320 @@
+<testsuites id="" name="" tests="63" failures="63" skipped="0" errors="0" time="140.641213">
+<testsuite name="ide-workflow.spec.ts" timestamp="2025-11-01T22:50:50.061Z" hostname="chromium" tests="9" failures="9" skipped="0" time="55.584" errors="0">
+<testcase name="CloudIDE Core Workflow › should load the IDE interface successfully" classname="ide-workflow.spec.ts" time="6.188">
+<failure message="ide-workflow.spec.ts:12:3 should load the IDE interface successfully" type="FAILURE">
+<![CDATA[  [chromium] › ide-workflow.spec.ts:12:3 › CloudIDE Core Workflow › should load the IDE interface successfully
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('[data-testid="ide-header"]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="ide-header"]')
+
+
+       7 |
+       8 |     // Wait for the application to load
+    >  9 |     await expect(page.locator('[data-testid="ide-header"]')).toBeVisible();
+         |                                                              ^
+      10 |   });
+      11 |
+      12 |   test('should load the IDE interface successfully', async ({ page }) => {
+        at /app/e2e/ide-workflow.spec.ts:9:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-750fd--IDE-interface-successfully-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-750fd--IDE-interface-successfully-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ide-workflow-CloudIDE-Core-750fd--IDE-interface-successfully-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-750fd--IDE-interface-successfully-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-750fd--IDE-interface-successfully-chromium/video.webm]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-750fd--IDE-interface-successfully-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should create and edit a new file" classname="ide-workflow.spec.ts" time="6.243">
+<failure message="ide-workflow.spec.ts:24:3 should create and edit a new file" type="FAILURE">
+<![CDATA[  [chromium] › ide-workflow.spec.ts:24:3 › CloudIDE Core Workflow › should create and edit a new file
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('[data-testid="ide-header"]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="ide-header"]')
+
+
+       7 |
+       8 |     // Wait for the application to load
+    >  9 |     await expect(page.locator('[data-testid="ide-header"]')).toBeVisible();
+         |                                                              ^
+      10 |   });
+      11 |
+      12 |   test('should load the IDE interface successfully', async ({ page }) => {
+        at /app/e2e/ide-workflow.spec.ts:9:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-e0969--create-and-edit-a-new-file-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-e0969--create-and-edit-a-new-file-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ide-workflow-CloudIDE-Core-e0969--create-and-edit-a-new-file-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-e0969--create-and-edit-a-new-file-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-e0969--create-and-edit-a-new-file-chromium/video.webm]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-e0969--create-and-edit-a-new-file-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should interact with AI chat interface" classname="ide-workflow.spec.ts" time="6.2">
+<failure message="ide-workflow.spec.ts:44:3 should interact with AI chat interface" type="FAILURE">
+<![CDATA[  [chromium] › ide-workflow.spec.ts:44:3 › CloudIDE Core Workflow › should interact with AI chat interface
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('[data-testid="ide-header"]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="ide-header"]')
+
+
+       7 |
+       8 |     // Wait for the application to load
+    >  9 |     await expect(page.locator('[data-testid="ide-header"]')).toBeVisible();
+         |                                                              ^
+      10 |   });
+      11 |
+      12 |   test('should load the IDE interface successfully', async ({ page }) => {
+        at /app/e2e/ide-workflow.spec.ts:9:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-cd428-ract-with-AI-chat-interface-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-cd428-ract-with-AI-chat-interface-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ide-workflow-CloudIDE-Core-cd428-ract-with-AI-chat-interface-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-cd428-ract-with-AI-chat-interface-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-cd428-ract-with-AI-chat-interface-chromium/video.webm]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-cd428-ract-with-AI-chat-interface-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should use terminal functionality" classname="ide-workflow.spec.ts" time="6.126">
+<failure message="ide-workflow.spec.ts:60:3 should use terminal functionality" type="FAILURE">
+<![CDATA[  [chromium] › ide-workflow.spec.ts:60:3 › CloudIDE Core Workflow › should use terminal functionality
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('[data-testid="ide-header"]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="ide-header"]')
+
+
+       7 |
+       8 |     // Wait for the application to load
+    >  9 |     await expect(page.locator('[data-testid="ide-header"]')).toBeVisible();
+         |                                                              ^
+      10 |   });
+      11 |
+      12 |   test('should load the IDE interface successfully', async ({ page }) => {
+        at /app/e2e/ide-workflow.spec.ts:9:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-e5082--use-terminal-functionality-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-e5082--use-terminal-functionality-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ide-workflow-CloudIDE-Core-e5082--use-terminal-functionality-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-e5082--use-terminal-functionality-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-e5082--use-terminal-functionality-chromium/video.webm]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-e5082--use-terminal-functionality-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should toggle theme between light and dark" classname="ide-workflow.spec.ts" time="6.169">
+<failure message="ide-workflow.spec.ts:74:3 should toggle theme between light and dark" type="FAILURE">
+<![CDATA[  [chromium] › ide-workflow.spec.ts:74:3 › CloudIDE Core Workflow › should toggle theme between light and dark
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('[data-testid="ide-header"]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="ide-header"]')
+
+
+       7 |
+       8 |     // Wait for the application to load
+    >  9 |     await expect(page.locator('[data-testid="ide-header"]')).toBeVisible();
+         |                                                              ^
+      10 |   });
+      11 |
+      12 |   test('should load the IDE interface successfully', async ({ page }) => {
+        at /app/e2e/ide-workflow.spec.ts:9:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-e65f6-heme-between-light-and-dark-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-e65f6-heme-between-light-and-dark-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ide-workflow-CloudIDE-Core-e65f6-heme-between-light-and-dark-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-e65f6-heme-between-light-and-dark-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-e65f6-heme-between-light-and-dark-chromium/video.webm]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-e65f6-heme-between-light-and-dark-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should show builder status and orchestration" classname="ide-workflow.spec.ts" time="6.198">
+<failure message="ide-workflow.spec.ts:94:3 should show builder status and orchestration" type="FAILURE">
+<![CDATA[  [chromium] › ide-workflow.spec.ts:94:3 › CloudIDE Core Workflow › should show builder status and orchestration
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('[data-testid="ide-header"]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="ide-header"]')
+
+
+       7 |
+       8 |     // Wait for the application to load
+    >  9 |     await expect(page.locator('[data-testid="ide-header"]')).toBeVisible();
+         |                                                              ^
+      10 |   });
+      11 |
+      12 |   test('should load the IDE interface successfully', async ({ page }) => {
+        at /app/e2e/ide-workflow.spec.ts:9:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-ee5ba-er-status-and-orchestration-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-ee5ba-er-status-and-orchestration-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ide-workflow-CloudIDE-Core-ee5ba-er-status-and-orchestration-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-ee5ba-er-status-and-orchestration-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-ee5ba-er-status-and-orchestration-chromium/video.webm]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-ee5ba-er-status-and-orchestration-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should handle file operations" classname="ide-workflow.spec.ts" time="6.125">
+<failure message="ide-workflow.spec.ts:108:3 should handle file operations" type="FAILURE">
+<![CDATA[  [chromium] › ide-workflow.spec.ts:108:3 › CloudIDE Core Workflow › should handle file operations ─
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('[data-testid="ide-header"]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="ide-header"]')
+
+
+       7 |
+       8 |     // Wait for the application to load
+    >  9 |     await expect(page.locator('[data-testid="ide-header"]')).toBeVisible();
+         |                                                              ^
+      10 |   });
+      11 |
+      12 |   test('should load the IDE interface successfully', async ({ page }) => {
+        at /app/e2e/ide-workflow.spec.ts:9:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-4ec1e-ould-handle-file-operations-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-4ec1e-ould-handle-file-operations-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ide-workflow-CloudIDE-Core-4ec1e-ould-handle-file-operations-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-4ec1e-ould-handle-file-operations-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-4ec1e-ould-handle-file-operations-chromium/video.webm]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-4ec1e-ould-handle-file-operations-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should show real-time collaboration features" classname="ide-workflow.spec.ts" time="6.142">
+<failure message="ide-workflow.spec.ts:128:3 should show real-time collaboration features" type="FAILURE">
+<![CDATA[  [chromium] › ide-workflow.spec.ts:128:3 › CloudIDE Core Workflow › should show real-time collaboration features
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('[data-testid="ide-header"]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="ide-header"]')
+
+
+       7 |
+       8 |     // Wait for the application to load
+    >  9 |     await expect(page.locator('[data-testid="ide-header"]')).toBeVisible();
+         |                                                              ^
+      10 |   });
+      11 |
+      12 |   test('should load the IDE interface successfully', async ({ page }) => {
+        at /app/e2e/ide-workflow.spec.ts:9:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-ce915-time-collaboration-features-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-ce915-time-collaboration-features-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ide-workflow-CloudIDE-Core-ce915-time-collaboration-features-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-ce915-time-collaboration-features-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-ce915-time-collaboration-features-chromium/video.webm]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-ce915-time-collaboration-features-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should handle responsive design" classname="ide-workflow.spec.ts" time="6.193">
+<failure message="ide-workflow.spec.ts:141:3 should handle responsive design" type="FAILURE">
+<![CDATA[  [chromium] › ide-workflow.spec.ts:141:3 › CloudIDE Core Workflow › should handle responsive design
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('[data-testid="ide-header"]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="ide-header"]')
+
+
+       7 |
+       8 |     // Wait for the application to load
+    >  9 |     await expect(page.locator('[data-testid="ide-header"]')).toBeVisible();
+         |                                                              ^
+      10 |   });
+      11 |
+      12 |   test('should load the IDE interface successfully', async ({ page }) => {
+        at /app/e2e/ide-workflow.spec.ts:9:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-75d0b-ld-handle-responsive-design-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-75d0b-ld-handle-responsive-design-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ide-workflow-CloudIDE-Core-75d0b-ld-handle-responsive-design-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-75d0b-ld-handle-responsive-design-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-75d0b-ld-handle-responsive-design-chromium/video.webm]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-75d0b-ld-handle-responsive-design-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="ide-workflow.spec.ts" timestamp="2025-11-01T22:50:50.061Z" hostname="firefox" tests="9" failures="9" skipped="0" time="62.499" errors="0">
+<testcase name="CloudIDE Core Workflow › should load the IDE interface successfully" classname="ide-workflow.spec.ts" time="6.961">
+<failure message="ide-workflow.spec.ts:12:3 should load the IDE interface successfully" type="FAILURE">
+<![CDATA[  [firefox] › ide-workflow.spec.ts:12:3 › CloudIDE Core Workflow › should load the IDE interface successfully
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('[data-testid="ide-header"]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="ide-header"]')
+
+
+       7 |
+       8 |     // Wait for the application to load
+    >  9 |     await expect(page.locator('[data-testid="ide-header"]')).toBeVisible();
+         |                                                              ^
+      10 |   });
+      11 |
+      12 |   test('should load the IDE interface successfully', async ({ page }) => {
+        at /app/e2e/ide-workflow.spec.ts:9:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-750fd--IDE-interface-successfully-firefox/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-750fd--IDE-interface-successfully-firefox/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ide-workflow-CloudIDE-Core-750fd--IDE-interface-successfully-firefox/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-750fd--IDE-interface-successfully-firefox/test-failed-1.png]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-750fd--IDE-interface-successfully-firefox/video.webm]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-750fd--IDE-interface-successfully-firefox/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should create and edit a new file" classname="ide-workflow.spec.ts" time="6.947">
+<failure message="ide-workflow.spec.ts:24:3 should create and edit a new file" type="FAILURE">
+<![CDATA[  [firefox] › ide-workflow.spec.ts:24:3 › CloudIDE Core Workflow › should create and edit a new file
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('[data-testid="ide-header"]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="ide-header"]')
+
+
+       7 |
+       8 |     // Wait for the application to load
+    >  9 |     await expect(page.locator('[data-testid="ide-header"]')).toBeVisible();
+         |                                                              ^
+      10 |   });
+      11 |
+      12 |   test('should load the IDE interface successfully', async ({ page }) => {
+        at /app/e2e/ide-workflow.spec.ts:9:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-e0969--create-and-edit-a-new-file-firefox/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-e0969--create-and-edit-a-new-file-firefox/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ide-workflow-CloudIDE-Core-e0969--create-and-edit-a-new-file-firefox/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-e0969--create-and-edit-a-new-file-firefox/test-failed-1.png]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-e0969--create-and-edit-a-new-file-firefox/video.webm]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-e0969--create-and-edit-a-new-file-firefox/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should interact with AI chat interface" classname="ide-workflow.spec.ts" time="7.227">
+<failure message="ide-workflow.spec.ts:44:3 should interact with AI chat interface" type="FAILURE">
+<![CDATA[  [firefox] › ide-workflow.spec.ts:44:3 › CloudIDE Core Workflow › should interact with AI chat interface
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('[data-testid="ide-header"]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="ide-header"]')
+
+
+       7 |
+       8 |     // Wait for the application to load
+    >  9 |     await expect(page.locator('[data-testid="ide-header"]')).toBeVisible();
+         |                                                              ^
+      10 |   });
+      11 |
+      12 |   test('should load the IDE interface successfully', async ({ page }) => {
+        at /app/e2e/ide-workflow.spec.ts:9:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-cd428-ract-with-AI-chat-interface-firefox/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-cd428-ract-with-AI-chat-interface-firefox/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ide-workflow-CloudIDE-Core-cd428-ract-with-AI-chat-interface-firefox/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-cd428-ract-with-AI-chat-interface-firefox/test-failed-1.png]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-cd428-ract-with-AI-chat-interface-firefox/video.webm]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-cd428-ract-with-AI-chat-interface-firefox/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should use terminal functionality" classname="ide-workflow.spec.ts" time="6.923">
+<failure message="ide-workflow.spec.ts:60:3 should use terminal functionality" type="FAILURE">
+<![CDATA[  [firefox] › ide-workflow.spec.ts:60:3 › CloudIDE Core Workflow › should use terminal functionality
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('[data-testid="ide-header"]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="ide-header"]')
+
+
+       7 |
+       8 |     // Wait for the application to load
+    >  9 |     await expect(page.locator('[data-testid="ide-header"]')).toBeVisible();
+         |                                                              ^
+      10 |   });
+      11 |
+      12 |   test('should load the IDE interface successfully', async ({ page }) => {
+        at /app/e2e/ide-workflow.spec.ts:9:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-e5082--use-terminal-functionality-firefox/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-e5082--use-terminal-functionality-firefox/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ide-workflow-CloudIDE-Core-e5082--use-terminal-functionality-firefox/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-e5082--use-terminal-functionality-firefox/test-failed-1.png]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-e5082--use-terminal-functionality-firefox/video.webm]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-e5082--use-terminal-functionality-firefox/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should toggle theme between light and dark" classname="ide-workflow.spec.ts" time="6.89">
+<failure message="ide-workflow.spec.ts:74:3 should toggle theme between light and dark" type="FAILURE">
+<![CDATA[  [firefox] › ide-workflow.spec.ts:74:3 › CloudIDE Core Workflow › should toggle theme between light and dark
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('[data-testid="ide-header"]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="ide-header"]')
+
+
+       7 |
+       8 |     // Wait for the application to load
+    >  9 |     await expect(page.locator('[data-testid="ide-header"]')).toBeVisible();
+         |                                                              ^
+      10 |   });
+      11 |
+      12 |   test('should load the IDE interface successfully', async ({ page }) => {
+        at /app/e2e/ide-workflow.spec.ts:9:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-e65f6-heme-between-light-and-dark-firefox/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-e65f6-heme-between-light-and-dark-firefox/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ide-workflow-CloudIDE-Core-e65f6-heme-between-light-and-dark-firefox/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-e65f6-heme-between-light-and-dark-firefox/test-failed-1.png]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-e65f6-heme-between-light-and-dark-firefox/video.webm]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-e65f6-heme-between-light-and-dark-firefox/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should show builder status and orchestration" classname="ide-workflow.spec.ts" time="6.887">
+<failure message="ide-workflow.spec.ts:94:3 should show builder status and orchestration" type="FAILURE">
+<![CDATA[  [firefox] › ide-workflow.spec.ts:94:3 › CloudIDE Core Workflow › should show builder status and orchestration
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('[data-testid="ide-header"]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="ide-header"]')
+
+
+       7 |
+       8 |     // Wait for the application to load
+    >  9 |     await expect(page.locator('[data-testid="ide-header"]')).toBeVisible();
+         |                                                              ^
+      10 |   });
+      11 |
+      12 |   test('should load the IDE interface successfully', async ({ page }) => {
+        at /app/e2e/ide-workflow.spec.ts:9:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-ee5ba-er-status-and-orchestration-firefox/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-ee5ba-er-status-and-orchestration-firefox/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ide-workflow-CloudIDE-Core-ee5ba-er-status-and-orchestration-firefox/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-ee5ba-er-status-and-orchestration-firefox/test-failed-1.png]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-ee5ba-er-status-and-orchestration-firefox/video.webm]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-ee5ba-er-status-and-orchestration-firefox/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should handle file operations" classname="ide-workflow.spec.ts" time="6.883">
+<failure message="ide-workflow.spec.ts:108:3 should handle file operations" type="FAILURE">
+<![CDATA[  [firefox] › ide-workflow.spec.ts:108:3 › CloudIDE Core Workflow › should handle file operations ──
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('[data-testid="ide-header"]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="ide-header"]')
+
+
+       7 |
+       8 |     // Wait for the application to load
+    >  9 |     await expect(page.locator('[data-testid="ide-header"]')).toBeVisible();
+         |                                                              ^
+      10 |   });
+      11 |
+      12 |   test('should load the IDE interface successfully', async ({ page }) => {
+        at /app/e2e/ide-workflow.spec.ts:9:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-4ec1e-ould-handle-file-operations-firefox/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-4ec1e-ould-handle-file-operations-firefox/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ide-workflow-CloudIDE-Core-4ec1e-ould-handle-file-operations-firefox/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-4ec1e-ould-handle-file-operations-firefox/test-failed-1.png]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-4ec1e-ould-handle-file-operations-firefox/video.webm]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-4ec1e-ould-handle-file-operations-firefox/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should show real-time collaboration features" classname="ide-workflow.spec.ts" time="6.899">
+<failure message="ide-workflow.spec.ts:128:3 should show real-time collaboration features" type="FAILURE">
+<![CDATA[  [firefox] › ide-workflow.spec.ts:128:3 › CloudIDE Core Workflow › should show real-time collaboration features
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('[data-testid="ide-header"]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="ide-header"]')
+
+
+       7 |
+       8 |     // Wait for the application to load
+    >  9 |     await expect(page.locator('[data-testid="ide-header"]')).toBeVisible();
+         |                                                              ^
+      10 |   });
+      11 |
+      12 |   test('should load the IDE interface successfully', async ({ page }) => {
+        at /app/e2e/ide-workflow.spec.ts:9:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-ce915-time-collaboration-features-firefox/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-ce915-time-collaboration-features-firefox/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ide-workflow-CloudIDE-Core-ce915-time-collaboration-features-firefox/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-ce915-time-collaboration-features-firefox/test-failed-1.png]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-ce915-time-collaboration-features-firefox/video.webm]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-ce915-time-collaboration-features-firefox/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should handle responsive design" classname="ide-workflow.spec.ts" time="6.882">
+<failure message="ide-workflow.spec.ts:141:3 should handle responsive design" type="FAILURE">
+<![CDATA[  [firefox] › ide-workflow.spec.ts:141:3 › CloudIDE Core Workflow › should handle responsive design
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('[data-testid="ide-header"]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="ide-header"]')
+
+
+       7 |
+       8 |     // Wait for the application to load
+    >  9 |     await expect(page.locator('[data-testid="ide-header"]')).toBeVisible();
+         |                                                              ^
+      10 |   });
+      11 |
+      12 |   test('should load the IDE interface successfully', async ({ page }) => {
+        at /app/e2e/ide-workflow.spec.ts:9:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-75d0b-ld-handle-responsive-design-firefox/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-75d0b-ld-handle-responsive-design-firefox/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ide-workflow-CloudIDE-Core-75d0b-ld-handle-responsive-design-firefox/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-75d0b-ld-handle-responsive-design-firefox/test-failed-1.png]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-75d0b-ld-handle-responsive-design-firefox/video.webm]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-75d0b-ld-handle-responsive-design-firefox/error-context.md]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="ide-workflow.spec.ts" timestamp="2025-11-01T22:50:50.061Z" hostname="webkit" tests="9" failures="9" skipped="0" time="0.049" errors="0">
+<testcase name="CloudIDE Core Workflow › should load the IDE interface successfully" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:12:3 should load the IDE interface successfully" type="FAILURE">
+<![CDATA[  [webkit] › ide-workflow.spec.ts:12:3 › CloudIDE Core Workflow › should load the IDE interface successfully
+
+    Error: browserType.launch:
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libgtk-4.so.1                                    ║
+    ║     libgraphene-1.0.so.0                             ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.9                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libwebpdemux.so.2                                ║
+    ║     libavif.so.16                                    ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libwebpmux.so.3                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should create and edit a new file" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:24:3 should create and edit a new file" type="FAILURE">
+<![CDATA[  [webkit] › ide-workflow.spec.ts:24:3 › CloudIDE Core Workflow › should create and edit a new file
+
+    Error: browserType.launch:
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libgtk-4.so.1                                    ║
+    ║     libgraphene-1.0.so.0                             ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.9                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libwebpdemux.so.2                                ║
+    ║     libavif.so.16                                    ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libwebpmux.so.3                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should interact with AI chat interface" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:44:3 should interact with AI chat interface" type="FAILURE">
+<![CDATA[  [webkit] › ide-workflow.spec.ts:44:3 › CloudIDE Core Workflow › should interact with AI chat interface
+
+    Error: browserType.launch:
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libgtk-4.so.1                                    ║
+    ║     libgraphene-1.0.so.0                             ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.9                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libwebpdemux.so.2                                ║
+    ║     libavif.so.16                                    ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libwebpmux.so.3                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should use terminal functionality" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:60:3 should use terminal functionality" type="FAILURE">
+<![CDATA[  [webkit] › ide-workflow.spec.ts:60:3 › CloudIDE Core Workflow › should use terminal functionality
+
+    Error: browserType.launch:
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libgtk-4.so.1                                    ║
+    ║     libgraphene-1.0.so.0                             ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.9                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libwebpdemux.so.2                                ║
+    ║     libavif.so.16                                    ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libwebpmux.so.3                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should toggle theme between light and dark" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:74:3 should toggle theme between light and dark" type="FAILURE">
+<![CDATA[  [webkit] › ide-workflow.spec.ts:74:3 › CloudIDE Core Workflow › should toggle theme between light and dark
+
+    Error: browserType.launch:
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libgtk-4.so.1                                    ║
+    ║     libgraphene-1.0.so.0                             ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.9                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libwebpdemux.so.2                                ║
+    ║     libavif.so.16                                    ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libwebpmux.so.3                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should show builder status and orchestration" classname="ide-workflow.spec.ts" time="0.009">
+<failure message="ide-workflow.spec.ts:94:3 should show builder status and orchestration" type="FAILURE">
+<![CDATA[  [webkit] › ide-workflow.spec.ts:94:3 › CloudIDE Core Workflow › should show builder status and orchestration
+
+    Error: browserType.launch:
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libgtk-4.so.1                                    ║
+    ║     libgraphene-1.0.so.0                             ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.9                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libwebpdemux.so.2                                ║
+    ║     libavif.so.16                                    ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libwebpmux.so.3                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should handle file operations" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:108:3 should handle file operations" type="FAILURE">
+<![CDATA[  [webkit] › ide-workflow.spec.ts:108:3 › CloudIDE Core Workflow › should handle file operations ───
+
+    Error: browserType.launch:
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libgtk-4.so.1                                    ║
+    ║     libgraphene-1.0.so.0                             ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.9                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libwebpdemux.so.2                                ║
+    ║     libavif.so.16                                    ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libwebpmux.so.3                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should show real-time collaboration features" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:128:3 should show real-time collaboration features" type="FAILURE">
+<![CDATA[  [webkit] › ide-workflow.spec.ts:128:3 › CloudIDE Core Workflow › should show real-time collaboration features
+
+    Error: browserType.launch:
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libgtk-4.so.1                                    ║
+    ║     libgraphene-1.0.so.0                             ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.9                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libwebpdemux.so.2                                ║
+    ║     libavif.so.16                                    ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libwebpmux.so.3                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should handle responsive design" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:141:3 should handle responsive design" type="FAILURE">
+<![CDATA[  [webkit] › ide-workflow.spec.ts:141:3 › CloudIDE Core Workflow › should handle responsive design ─
+
+    Error: browserType.launch:
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libgtk-4.so.1                                    ║
+    ║     libgraphene-1.0.so.0                             ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.9                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libwebpdemux.so.2                                ║
+    ║     libavif.so.16                                    ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libwebpmux.so.3                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+</testsuite>
+<testsuite name="ide-workflow.spec.ts" timestamp="2025-11-01T22:50:50.061Z" hostname="Mobile Chrome" tests="9" failures="9" skipped="0" time="54.601" errors="0">
+<testcase name="CloudIDE Core Workflow › should load the IDE interface successfully" classname="ide-workflow.spec.ts" time="6.062">
+<failure message="ide-workflow.spec.ts:12:3 should load the IDE interface successfully" type="FAILURE">
+<![CDATA[  [Mobile Chrome] › ide-workflow.spec.ts:12:3 › CloudIDE Core Workflow › should load the IDE interface successfully
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('[data-testid="ide-header"]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="ide-header"]')
+
+
+       7 |
+       8 |     // Wait for the application to load
+    >  9 |     await expect(page.locator('[data-testid="ide-header"]')).toBeVisible();
+         |                                                              ^
+      10 |   });
+      11 |
+      12 |   test('should load the IDE interface successfully', async ({ page }) => {
+        at /app/e2e/ide-workflow.spec.ts:9:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-750fd--IDE-interface-successfully-Mobile-Chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-750fd--IDE-interface-successfully-Mobile-Chrome/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ide-workflow-CloudIDE-Core-750fd--IDE-interface-successfully-Mobile-Chrome/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-750fd--IDE-interface-successfully-Mobile-Chrome/test-failed-1.png]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-750fd--IDE-interface-successfully-Mobile-Chrome/video.webm]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-750fd--IDE-interface-successfully-Mobile-Chrome/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should create and edit a new file" classname="ide-workflow.spec.ts" time="6.079">
+<failure message="ide-workflow.spec.ts:24:3 should create and edit a new file" type="FAILURE">
+<![CDATA[  [Mobile Chrome] › ide-workflow.spec.ts:24:3 › CloudIDE Core Workflow › should create and edit a new file
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('[data-testid="ide-header"]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="ide-header"]')
+
+
+       7 |
+       8 |     // Wait for the application to load
+    >  9 |     await expect(page.locator('[data-testid="ide-header"]')).toBeVisible();
+         |                                                              ^
+      10 |   });
+      11 |
+      12 |   test('should load the IDE interface successfully', async ({ page }) => {
+        at /app/e2e/ide-workflow.spec.ts:9:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-e0969--create-and-edit-a-new-file-Mobile-Chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-e0969--create-and-edit-a-new-file-Mobile-Chrome/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ide-workflow-CloudIDE-Core-e0969--create-and-edit-a-new-file-Mobile-Chrome/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-e0969--create-and-edit-a-new-file-Mobile-Chrome/test-failed-1.png]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-e0969--create-and-edit-a-new-file-Mobile-Chrome/video.webm]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-e0969--create-and-edit-a-new-file-Mobile-Chrome/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should interact with AI chat interface" classname="ide-workflow.spec.ts" time="6.069">
+<failure message="ide-workflow.spec.ts:44:3 should interact with AI chat interface" type="FAILURE">
+<![CDATA[  [Mobile Chrome] › ide-workflow.spec.ts:44:3 › CloudIDE Core Workflow › should interact with AI chat interface
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('[data-testid="ide-header"]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="ide-header"]')
+
+
+       7 |
+       8 |     // Wait for the application to load
+    >  9 |     await expect(page.locator('[data-testid="ide-header"]')).toBeVisible();
+         |                                                              ^
+      10 |   });
+      11 |
+      12 |   test('should load the IDE interface successfully', async ({ page }) => {
+        at /app/e2e/ide-workflow.spec.ts:9:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-cd428-ract-with-AI-chat-interface-Mobile-Chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-cd428-ract-with-AI-chat-interface-Mobile-Chrome/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ide-workflow-CloudIDE-Core-cd428-ract-with-AI-chat-interface-Mobile-Chrome/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-cd428-ract-with-AI-chat-interface-Mobile-Chrome/test-failed-1.png]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-cd428-ract-with-AI-chat-interface-Mobile-Chrome/video.webm]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-cd428-ract-with-AI-chat-interface-Mobile-Chrome/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should use terminal functionality" classname="ide-workflow.spec.ts" time="6.076">
+<failure message="ide-workflow.spec.ts:60:3 should use terminal functionality" type="FAILURE">
+<![CDATA[  [Mobile Chrome] › ide-workflow.spec.ts:60:3 › CloudIDE Core Workflow › should use terminal functionality
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('[data-testid="ide-header"]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="ide-header"]')
+
+
+       7 |
+       8 |     // Wait for the application to load
+    >  9 |     await expect(page.locator('[data-testid="ide-header"]')).toBeVisible();
+         |                                                              ^
+      10 |   });
+      11 |
+      12 |   test('should load the IDE interface successfully', async ({ page }) => {
+        at /app/e2e/ide-workflow.spec.ts:9:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-e5082--use-terminal-functionality-Mobile-Chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-e5082--use-terminal-functionality-Mobile-Chrome/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ide-workflow-CloudIDE-Core-e5082--use-terminal-functionality-Mobile-Chrome/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-e5082--use-terminal-functionality-Mobile-Chrome/test-failed-1.png]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-e5082--use-terminal-functionality-Mobile-Chrome/video.webm]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-e5082--use-terminal-functionality-Mobile-Chrome/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should toggle theme between light and dark" classname="ide-workflow.spec.ts" time="6.043">
+<failure message="ide-workflow.spec.ts:74:3 should toggle theme between light and dark" type="FAILURE">
+<![CDATA[  [Mobile Chrome] › ide-workflow.spec.ts:74:3 › CloudIDE Core Workflow › should toggle theme between light and dark
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('[data-testid="ide-header"]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="ide-header"]')
+
+
+       7 |
+       8 |     // Wait for the application to load
+    >  9 |     await expect(page.locator('[data-testid="ide-header"]')).toBeVisible();
+         |                                                              ^
+      10 |   });
+      11 |
+      12 |   test('should load the IDE interface successfully', async ({ page }) => {
+        at /app/e2e/ide-workflow.spec.ts:9:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-e65f6-heme-between-light-and-dark-Mobile-Chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-e65f6-heme-between-light-and-dark-Mobile-Chrome/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ide-workflow-CloudIDE-Core-e65f6-heme-between-light-and-dark-Mobile-Chrome/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-e65f6-heme-between-light-and-dark-Mobile-Chrome/test-failed-1.png]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-e65f6-heme-between-light-and-dark-Mobile-Chrome/video.webm]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-e65f6-heme-between-light-and-dark-Mobile-Chrome/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should show builder status and orchestration" classname="ide-workflow.spec.ts" time="6.054">
+<failure message="ide-workflow.spec.ts:94:3 should show builder status and orchestration" type="FAILURE">
+<![CDATA[  [Mobile Chrome] › ide-workflow.spec.ts:94:3 › CloudIDE Core Workflow › should show builder status and orchestration
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('[data-testid="ide-header"]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="ide-header"]')
+
+
+       7 |
+       8 |     // Wait for the application to load
+    >  9 |     await expect(page.locator('[data-testid="ide-header"]')).toBeVisible();
+         |                                                              ^
+      10 |   });
+      11 |
+      12 |   test('should load the IDE interface successfully', async ({ page }) => {
+        at /app/e2e/ide-workflow.spec.ts:9:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-ee5ba-er-status-and-orchestration-Mobile-Chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-ee5ba-er-status-and-orchestration-Mobile-Chrome/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ide-workflow-CloudIDE-Core-ee5ba-er-status-and-orchestration-Mobile-Chrome/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-ee5ba-er-status-and-orchestration-Mobile-Chrome/test-failed-1.png]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-ee5ba-er-status-and-orchestration-Mobile-Chrome/video.webm]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-ee5ba-er-status-and-orchestration-Mobile-Chrome/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should handle file operations" classname="ide-workflow.spec.ts" time="6.065">
+<failure message="ide-workflow.spec.ts:108:3 should handle file operations" type="FAILURE">
+<![CDATA[  [Mobile Chrome] › ide-workflow.spec.ts:108:3 › CloudIDE Core Workflow › should handle file operations
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('[data-testid="ide-header"]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="ide-header"]')
+
+
+       7 |
+       8 |     // Wait for the application to load
+    >  9 |     await expect(page.locator('[data-testid="ide-header"]')).toBeVisible();
+         |                                                              ^
+      10 |   });
+      11 |
+      12 |   test('should load the IDE interface successfully', async ({ page }) => {
+        at /app/e2e/ide-workflow.spec.ts:9:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-4ec1e-ould-handle-file-operations-Mobile-Chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-4ec1e-ould-handle-file-operations-Mobile-Chrome/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ide-workflow-CloudIDE-Core-4ec1e-ould-handle-file-operations-Mobile-Chrome/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-4ec1e-ould-handle-file-operations-Mobile-Chrome/test-failed-1.png]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-4ec1e-ould-handle-file-operations-Mobile-Chrome/video.webm]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-4ec1e-ould-handle-file-operations-Mobile-Chrome/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should show real-time collaboration features" classname="ide-workflow.spec.ts" time="6.079">
+<failure message="ide-workflow.spec.ts:128:3 should show real-time collaboration features" type="FAILURE">
+<![CDATA[  [Mobile Chrome] › ide-workflow.spec.ts:128:3 › CloudIDE Core Workflow › should show real-time collaboration features
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('[data-testid="ide-header"]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="ide-header"]')
+
+
+       7 |
+       8 |     // Wait for the application to load
+    >  9 |     await expect(page.locator('[data-testid="ide-header"]')).toBeVisible();
+         |                                                              ^
+      10 |   });
+      11 |
+      12 |   test('should load the IDE interface successfully', async ({ page }) => {
+        at /app/e2e/ide-workflow.spec.ts:9:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-ce915-time-collaboration-features-Mobile-Chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-ce915-time-collaboration-features-Mobile-Chrome/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ide-workflow-CloudIDE-Core-ce915-time-collaboration-features-Mobile-Chrome/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-ce915-time-collaboration-features-Mobile-Chrome/test-failed-1.png]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-ce915-time-collaboration-features-Mobile-Chrome/video.webm]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-ce915-time-collaboration-features-Mobile-Chrome/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should handle responsive design" classname="ide-workflow.spec.ts" time="6.074">
+<failure message="ide-workflow.spec.ts:141:3 should handle responsive design" type="FAILURE">
+<![CDATA[  [Mobile Chrome] › ide-workflow.spec.ts:141:3 › CloudIDE Core Workflow › should handle responsive design
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('[data-testid="ide-header"]')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="ide-header"]')
+
+
+       7 |
+       8 |     // Wait for the application to load
+    >  9 |     await expect(page.locator('[data-testid="ide-header"]')).toBeVisible();
+         |                                                              ^
+      10 |   });
+      11 |
+      12 |   test('should load the IDE interface successfully', async ({ page }) => {
+        at /app/e2e/ide-workflow.spec.ts:9:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-75d0b-ld-handle-responsive-design-Mobile-Chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ide-workflow-CloudIDE-Core-75d0b-ld-handle-responsive-design-Mobile-Chrome/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ide-workflow-CloudIDE-Core-75d0b-ld-handle-responsive-design-Mobile-Chrome/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-75d0b-ld-handle-responsive-design-Mobile-Chrome/test-failed-1.png]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-75d0b-ld-handle-responsive-design-Mobile-Chrome/video.webm]]
+
+[[ATTACHMENT|ide-workflow-CloudIDE-Core-75d0b-ld-handle-responsive-design-Mobile-Chrome/error-context.md]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="ide-workflow.spec.ts" timestamp="2025-11-01T22:50:50.061Z" hostname="Mobile Safari" tests="9" failures="9" skipped="0" time="0.047" errors="0">
+<testcase name="CloudIDE Core Workflow › should load the IDE interface successfully" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:12:3 should load the IDE interface successfully" type="FAILURE">
+<![CDATA[  [Mobile Safari] › ide-workflow.spec.ts:12:3 › CloudIDE Core Workflow › should load the IDE interface successfully
+
+    Error: browserType.launch:
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libgtk-4.so.1                                    ║
+    ║     libgraphene-1.0.so.0                             ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.9                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libwebpdemux.so.2                                ║
+    ║     libavif.so.16                                    ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libwebpmux.so.3                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should create and edit a new file" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:24:3 should create and edit a new file" type="FAILURE">
+<![CDATA[  [Mobile Safari] › ide-workflow.spec.ts:24:3 › CloudIDE Core Workflow › should create and edit a new file
+
+    Error: browserType.launch:
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libgtk-4.so.1                                    ║
+    ║     libgraphene-1.0.so.0                             ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.9                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libwebpdemux.so.2                                ║
+    ║     libavif.so.16                                    ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libwebpmux.so.3                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should interact with AI chat interface" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:44:3 should interact with AI chat interface" type="FAILURE">
+<![CDATA[  [Mobile Safari] › ide-workflow.spec.ts:44:3 › CloudIDE Core Workflow › should interact with AI chat interface
+
+    Error: browserType.launch:
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libgtk-4.so.1                                    ║
+    ║     libgraphene-1.0.so.0                             ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.9                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libwebpdemux.so.2                                ║
+    ║     libavif.so.16                                    ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libwebpmux.so.3                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should use terminal functionality" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:60:3 should use terminal functionality" type="FAILURE">
+<![CDATA[  [Mobile Safari] › ide-workflow.spec.ts:60:3 › CloudIDE Core Workflow › should use terminal functionality
+
+    Error: browserType.launch:
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libgtk-4.so.1                                    ║
+    ║     libgraphene-1.0.so.0                             ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.9                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libwebpdemux.so.2                                ║
+    ║     libavif.so.16                                    ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libwebpmux.so.3                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should toggle theme between light and dark" classname="ide-workflow.spec.ts" time="0.006">
+<failure message="ide-workflow.spec.ts:74:3 should toggle theme between light and dark" type="FAILURE">
+<![CDATA[  [Mobile Safari] › ide-workflow.spec.ts:74:3 › CloudIDE Core Workflow › should toggle theme between light and dark
+
+    Error: browserType.launch:
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libgtk-4.so.1                                    ║
+    ║     libgraphene-1.0.so.0                             ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.9                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libwebpdemux.so.2                                ║
+    ║     libavif.so.16                                    ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libwebpmux.so.3                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should show builder status and orchestration" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:94:3 should show builder status and orchestration" type="FAILURE">
+<![CDATA[  [Mobile Safari] › ide-workflow.spec.ts:94:3 › CloudIDE Core Workflow › should show builder status and orchestration
+
+    Error: browserType.launch:
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libgtk-4.so.1                                    ║
+    ║     libgraphene-1.0.so.0                             ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.9                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libwebpdemux.so.2                                ║
+    ║     libavif.so.16                                    ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libwebpmux.so.3                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should handle file operations" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:108:3 should handle file operations" type="FAILURE">
+<![CDATA[  [Mobile Safari] › ide-workflow.spec.ts:108:3 › CloudIDE Core Workflow › should handle file operations
+
+    Error: browserType.launch:
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libgtk-4.so.1                                    ║
+    ║     libgraphene-1.0.so.0                             ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.9                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libwebpdemux.so.2                                ║
+    ║     libavif.so.16                                    ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libwebpmux.so.3                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should show real-time collaboration features" classname="ide-workflow.spec.ts" time="0.006">
+<failure message="ide-workflow.spec.ts:128:3 should show real-time collaboration features" type="FAILURE">
+<![CDATA[  [Mobile Safari] › ide-workflow.spec.ts:128:3 › CloudIDE Core Workflow › should show real-time collaboration features
+
+    Error: browserType.launch:
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libgtk-4.so.1                                    ║
+    ║     libgraphene-1.0.so.0                             ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.9                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libwebpdemux.so.2                                ║
+    ║     libavif.so.16                                    ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libwebpmux.so.3                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should handle responsive design" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:141:3 should handle responsive design" type="FAILURE">
+<![CDATA[  [Mobile Safari] › ide-workflow.spec.ts:141:3 › CloudIDE Core Workflow › should handle responsive design
+
+    Error: browserType.launch:
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Missing libraries:                                   ║
+    ║     libgtk-4.so.1                                    ║
+    ║     libgraphene-1.0.so.0                             ║
+    ║     libxslt.so.1                                     ║
+    ║     libwoff2dec.so.1.0.2                             ║
+    ║     libvpx.so.9                                      ║
+    ║     libevent-2.1.so.7                                ║
+    ║     libopus.so.0                                     ║
+    ║     libgstallocators-1.0.so.0                        ║
+    ║     libgstapp-1.0.so.0                               ║
+    ║     libgstpbutils-1.0.so.0                           ║
+    ║     libgstaudio-1.0.so.0                             ║
+    ║     libgsttag-1.0.so.0                               ║
+    ║     libgstvideo-1.0.so.0                             ║
+    ║     libgstgl-1.0.so.0                                ║
+    ║     libgstcodecparsers-1.0.so.0                      ║
+    ║     libgstfft-1.0.so.0                               ║
+    ║     libflite.so.1                                    ║
+    ║     libflite_usenglish.so.1                          ║
+    ║     libflite_cmu_grapheme_lang.so.1                  ║
+    ║     libflite_cmu_grapheme_lex.so.1                   ║
+    ║     libflite_cmu_indic_lang.so.1                     ║
+    ║     libflite_cmu_indic_lex.so.1                      ║
+    ║     libflite_cmulex.so.1                             ║
+    ║     libflite_cmu_time_awb.so.1                       ║
+    ║     libflite_cmu_us_awb.so.1                         ║
+    ║     libflite_cmu_us_kal16.so.1                       ║
+    ║     libflite_cmu_us_kal.so.1                         ║
+    ║     libflite_cmu_us_rms.so.1                         ║
+    ║     libflite_cmu_us_slt.so.1                         ║
+    ║     libwebpdemux.so.2                                ║
+    ║     libavif.so.16                                    ║
+    ║     libharfbuzz-icu.so.0                             ║
+    ║     libwebpmux.so.3                                  ║
+    ║     libenchant-2.so.2                                ║
+    ║     libsecret-1.so.0                                 ║
+    ║     libhyphen.so.0                                   ║
+    ║     libmanette-0.2.so.0                              ║
+    ║     libx264.so                                       ║
+    ╚══════════════════════════════════════════════════════╝
+]]>
+</failure>
+</testcase>
+</testsuite>
+<testsuite name="ide-workflow.spec.ts" timestamp="2025-11-01T22:50:50.061Z" hostname="Microsoft Edge" tests="9" failures="9" skipped="0" time="0.047" errors="0">
+<testcase name="CloudIDE Core Workflow › should load the IDE interface successfully" classname="ide-workflow.spec.ts" time="0.006">
+<failure message="ide-workflow.spec.ts:12:3 should load the IDE interface successfully" type="FAILURE">
+<![CDATA[  [Microsoft Edge] › ide-workflow.spec.ts:12:3 › CloudIDE Core Workflow › should load the IDE interface successfully
+
+    Error: browserType.launch: Chromium distribution 'msedge' is not found at /opt/microsoft/msedge/msedge
+    Run "npx playwright install msedge"
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should create and edit a new file" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:24:3 should create and edit a new file" type="FAILURE">
+<![CDATA[  [Microsoft Edge] › ide-workflow.spec.ts:24:3 › CloudIDE Core Workflow › should create and edit a new file
+
+    Error: browserType.launch: Chromium distribution 'msedge' is not found at /opt/microsoft/msedge/msedge
+    Run "npx playwright install msedge"
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should interact with AI chat interface" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:44:3 should interact with AI chat interface" type="FAILURE">
+<![CDATA[  [Microsoft Edge] › ide-workflow.spec.ts:44:3 › CloudIDE Core Workflow › should interact with AI chat interface
+
+    Error: browserType.launch: Chromium distribution 'msedge' is not found at /opt/microsoft/msedge/msedge
+    Run "npx playwright install msedge"
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should use terminal functionality" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:60:3 should use terminal functionality" type="FAILURE">
+<![CDATA[  [Microsoft Edge] › ide-workflow.spec.ts:60:3 › CloudIDE Core Workflow › should use terminal functionality
+
+    Error: browserType.launch: Chromium distribution 'msedge' is not found at /opt/microsoft/msedge/msedge
+    Run "npx playwright install msedge"
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should toggle theme between light and dark" classname="ide-workflow.spec.ts" time="0.006">
+<failure message="ide-workflow.spec.ts:74:3 should toggle theme between light and dark" type="FAILURE">
+<![CDATA[  [Microsoft Edge] › ide-workflow.spec.ts:74:3 › CloudIDE Core Workflow › should toggle theme between light and dark
+
+    Error: browserType.launch: Chromium distribution 'msedge' is not found at /opt/microsoft/msedge/msedge
+    Run "npx playwright install msedge"
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should show builder status and orchestration" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:94:3 should show builder status and orchestration" type="FAILURE">
+<![CDATA[  [Microsoft Edge] › ide-workflow.spec.ts:94:3 › CloudIDE Core Workflow › should show builder status and orchestration
+
+    Error: browserType.launch: Chromium distribution 'msedge' is not found at /opt/microsoft/msedge/msedge
+    Run "npx playwright install msedge"
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should handle file operations" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:108:3 should handle file operations" type="FAILURE">
+<![CDATA[  [Microsoft Edge] › ide-workflow.spec.ts:108:3 › CloudIDE Core Workflow › should handle file operations
+
+    Error: browserType.launch: Chromium distribution 'msedge' is not found at /opt/microsoft/msedge/msedge
+    Run "npx playwright install msedge"
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should show real-time collaboration features" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:128:3 should show real-time collaboration features" type="FAILURE">
+<![CDATA[  [Microsoft Edge] › ide-workflow.spec.ts:128:3 › CloudIDE Core Workflow › should show real-time collaboration features
+
+    Error: browserType.launch: Chromium distribution 'msedge' is not found at /opt/microsoft/msedge/msedge
+    Run "npx playwright install msedge"
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should handle responsive design" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:141:3 should handle responsive design" type="FAILURE">
+<![CDATA[  [Microsoft Edge] › ide-workflow.spec.ts:141:3 › CloudIDE Core Workflow › should handle responsive design
+
+    Error: browserType.launch: Chromium distribution 'msedge' is not found at /opt/microsoft/msedge/msedge
+    Run "npx playwright install msedge"
+]]>
+</failure>
+</testcase>
+</testsuite>
+<testsuite name="ide-workflow.spec.ts" timestamp="2025-11-01T22:50:50.061Z" hostname="Google Chrome" tests="9" failures="9" skipped="0" time="0.045" errors="0">
+<testcase name="CloudIDE Core Workflow › should load the IDE interface successfully" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:12:3 should load the IDE interface successfully" type="FAILURE">
+<![CDATA[  [Google Chrome] › ide-workflow.spec.ts:12:3 › CloudIDE Core Workflow › should load the IDE interface successfully
+
+    Error: browserType.launch: Chromium distribution 'chrome' is not found at /opt/google/chrome/chrome
+    Run "npx playwright install chrome"
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should create and edit a new file" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:24:3 should create and edit a new file" type="FAILURE">
+<![CDATA[  [Google Chrome] › ide-workflow.spec.ts:24:3 › CloudIDE Core Workflow › should create and edit a new file
+
+    Error: browserType.launch: Chromium distribution 'chrome' is not found at /opt/google/chrome/chrome
+    Run "npx playwright install chrome"
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should interact with AI chat interface" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:44:3 should interact with AI chat interface" type="FAILURE">
+<![CDATA[  [Google Chrome] › ide-workflow.spec.ts:44:3 › CloudIDE Core Workflow › should interact with AI chat interface
+
+    Error: browserType.launch: Chromium distribution 'chrome' is not found at /opt/google/chrome/chrome
+    Run "npx playwright install chrome"
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should use terminal functionality" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:60:3 should use terminal functionality" type="FAILURE">
+<![CDATA[  [Google Chrome] › ide-workflow.spec.ts:60:3 › CloudIDE Core Workflow › should use terminal functionality
+
+    Error: browserType.launch: Chromium distribution 'chrome' is not found at /opt/google/chrome/chrome
+    Run "npx playwright install chrome"
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should toggle theme between light and dark" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:74:3 should toggle theme between light and dark" type="FAILURE">
+<![CDATA[  [Google Chrome] › ide-workflow.spec.ts:74:3 › CloudIDE Core Workflow › should toggle theme between light and dark
+
+    Error: browserType.launch: Chromium distribution 'chrome' is not found at /opt/google/chrome/chrome
+    Run "npx playwright install chrome"
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should show builder status and orchestration" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:94:3 should show builder status and orchestration" type="FAILURE">
+<![CDATA[  [Google Chrome] › ide-workflow.spec.ts:94:3 › CloudIDE Core Workflow › should show builder status and orchestration
+
+    Error: browserType.launch: Chromium distribution 'chrome' is not found at /opt/google/chrome/chrome
+    Run "npx playwright install chrome"
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should handle file operations" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:108:3 should handle file operations" type="FAILURE">
+<![CDATA[  [Google Chrome] › ide-workflow.spec.ts:108:3 › CloudIDE Core Workflow › should handle file operations
+
+    Error: browserType.launch: Chromium distribution 'chrome' is not found at /opt/google/chrome/chrome
+    Run "npx playwright install chrome"
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should show real-time collaboration features" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:128:3 should show real-time collaboration features" type="FAILURE">
+<![CDATA[  [Google Chrome] › ide-workflow.spec.ts:128:3 › CloudIDE Core Workflow › should show real-time collaboration features
+
+    Error: browserType.launch: Chromium distribution 'chrome' is not found at /opt/google/chrome/chrome
+    Run "npx playwright install chrome"
+]]>
+</failure>
+</testcase>
+<testcase name="CloudIDE Core Workflow › should handle responsive design" classname="ide-workflow.spec.ts" time="0.005">
+<failure message="ide-workflow.spec.ts:141:3 should handle responsive design" type="FAILURE">
+<![CDATA[  [Google Chrome] › ide-workflow.spec.ts:141:3 › CloudIDE Core Workflow › should handle responsive design
+
+    Error: browserType.launch: Chromium distribution 'chrome' is not found at /opt/google/chrome/chrome
+    Run "npx playwright install chrome"
+]]>
+</failure>
+</testcase>
+</testsuite>
+</testsuites>
